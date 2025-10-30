@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Payment Gateway | Cr@ckFlow</title>
+
+  <!-- Bootstrap 4.6.2 -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.2/css/bootstrap.min.css">
+
+  <style>
+    body {
+      background-color: #0f0e17;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+    }
+
+    .payment-card {
+      background: #1a1a2e;
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.08);
+      max-width: 600px;
+      margin: 80px auto;
+    }
+
+    .btn-pay {
+      width: 100%;
+      padding: 15px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 18px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-pay:hover {
+      transform: scale(1.03);
+      opacity: 0.9;
+    }
+
+    .paypal {
+      background: #0070ba;
+      color: white;
+      border: none;
+    }
+
+    .skrill {
+      background: #7b158f;
+      color: white;
+      border: none;
+    }
+
+    .price-display {
+      font-size: 42px;
+      font-weight: bold;
+      color: #e0e0e0;
+      margin-bottom: 15px;
+    }
+
+    .divider {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      margin: 25px 0;
+    }
+
+    /* Make inputs bigger and add spacing */
+    .form-control {
+      font-size: 1.1rem;
+      padding: 14px 16px;
+      border-radius: 8px;
+      background-color: #22223b;
+      border: 1px solid #444;
+      color: #fff;
+    }
+
+    .form-control:focus {
+      border-color: #0070ba;
+      box-shadow: 0 0 5px rgba(0, 112, 186, 0.6);
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 35px; /* Increased gap between email and payment sections */
+    }
+
+    .text-muted {
+      color: #aaa !important;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container text-center">
+    <div class="payment-card">
+      <h2 class="mb-4 font-weight-bold">Cr@ckFlow Payment</h2>
+      <p class="lead" id="serviceName">Service Name</p>
+      <div class="price-display" id="servicePrice">$0.00</div>
+      <p class="text-muted">Please select a payment method below</p>
+
+      <div class="divider"></div>
+
+      <form id="paymentForm">
+        <input type="hidden" id="amountInput">
+        <input type="hidden" id="serviceInput">
+
+        <div class="form-group text-left">
+          <label for="email">Your Email</label>
+          <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+        </div>
+
+        <div class="form-group text-left">
+          <label>Choose Payment Method</label>
+          <select id="paymentMethod" class="form-control" required>
+            <option value="">-- Select Method --</option>
+            <option value="paypal">PayPal</option>
+            <option value="skrill">Skrill</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-pay paypal mt-2" id="payBtn">Proceed to Pay</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Bootstrap & jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- External JS -->
+  <script src="payment.js"></script>
+</body>
+</html>
+
