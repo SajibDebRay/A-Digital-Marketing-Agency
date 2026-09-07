@@ -1,47 +1,438 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-       <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>LOG IN|Cr@ckFlow</title>
-    <meta name="description" content="Cr@ckFlow is a Digital Marketing Website">
-    <meta property="og:description" content="Cr@ackFlow gives you the best">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>LOG IN | Cr@ckFlow</title>
+  <meta name="description" content="Cr@ckFlow is a Digital Marketing Website">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:        #0b1426;
+      --navy-mid:    #132040;
+      --gold:        #c9a84c;
+      --gold-light:  #e8c97a;
+      --cream:       #f7f3ec;
+      --white:       #ffffff;
+      --muted:       #8a96b0;
+      --muted-dark:  #4a5470;
+      --border:      rgba(201,168,76,0.22);
+      --border-soft: rgba(201,168,76,0.12);
+      --red-soft:    #e07070;
+    }
 
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    </head>
-    <body class="d-flex justify-content-center align-items-center" style="background-color: rgb(203, 201, 198); ">
-       <div class="container-md mt-4">
-        <form class="form m-auto col-lg-6 col-md-8 col-11 text-center bg-white p-4 rounded" method="POST" action="/auth/login">
-            <img src="Cr@ckFlow Logo.png" alt="logo" class="img-fluid" style="width: 90px;">
-  <h1 class="text-primary">LOG IN</h1>
-    <p class="mb-3">don't have any account?</p>
-    <a href="http://127.0.0.1:5500/signup.html" class="m-4 d-block">sign up here</a>
- 
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <div class="form-group">
-    <input type="email" class="form-control form-control-lg mb-3 border-primary" id="email" placeholder="Email">
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Jost', sans-serif;
+      background: var(--navy);
+      background-image:
+        radial-gradient(ellipse at 10% 15%, rgba(201,168,76,0.06) 0%, transparent 55%),
+        radial-gradient(ellipse at 90% 85%, rgba(28,46,87,0.7) 0%, transparent 55%);
+      padding: 2rem 1rem;
+    }
+
+    /* bg decorations */
+    .bg-deco {
+      position: fixed; inset: 0;
+      pointer-events: none; overflow: hidden; z-index: 0;
+    }
+    .bg-deco span {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.03);
+      border: 1px solid rgba(201,168,76,0.07);
+    }
+    .bg-deco span:nth-child(1) { width:320px; height:320px; top:-80px; left:-90px; }
+    .bg-deco span:nth-child(2) { width:220px; height:220px; bottom:30px; right:-70px; }
+    .bg-deco span:nth-child(3) { width:100px; height:100px; top:38%; right:6%; }
+    .bg-deco span:nth-child(4) { width:60px;  height:60px;  top:20%; left:5%; }
+
+    /* card */
+    .auth-card {
+      position: relative; z-index: 1;
+      width: 100%; max-width: 480px;
+      background: rgba(19,32,64,0.82);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 3rem 3rem 2.5rem;
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+    }
+    .auth-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+    .auth-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 180px; height: 180px;
+      background: radial-gradient(circle at bottom right, rgba(201,168,76,0.06), transparent 70%);
+      pointer-events: none;
+    }
+
+    /* logo */
+    .auth-logo {
+      display: block;
+      width: 68px;
+      margin: 0 auto 1.5rem;
+    }
+
+    /* icon */
+    .auth-icon {
+      width: 58px; height: 58px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.3rem;
+      font-size: 1.3rem;
+      color: var(--gold);
+    }
+
+    .auth-eyebrow {
+      font-size: 0.67rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 0.35rem;
+    }
+    .auth-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 500;
+      color: var(--white);
+      text-align: center;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.4rem;
+      line-height: 1.1;
+    }
+    .auth-subtitle {
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--muted);
+      text-align: center;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.3rem;
+    }
+    .auth-signup-link {
+      display: block;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--gold) !important;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      margin-bottom: 2rem;
+      transition: color 0.2s;
+    }
+    .auth-signup-link:hover { color: var(--gold-light) !important; text-decoration: none; }
+
+    /* divider */
+    .auth-divider {
+      border: none; height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+      margin: 0 0 1.8rem;
+    }
+
+    /* label */
+    .field-label {
+      font-size: 0.67rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.42rem;
+    }
+
+    /* input */
+    .input-wrap { position: relative; }
+    .input-icon {
+      position: absolute;
+      left: 14px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--gold);
+      opacity: 0.55;
+      font-size: 0.85rem;
+      pointer-events: none;
+    }
+    /* password toggle */
+    .pw-toggle {
+      position: absolute;
+      right: 14px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: color 0.2s;
+      background: none;
+      border: none;
+      padding: 0;
+      outline: none;
+    }
+    .pw-toggle:hover { color: var(--gold); }
+
+    .luxury-input {
+      width: 100%;
+      background: rgba(11,20,38,0.6);
+      border: 1px solid var(--border-soft);
+      border-radius: 10px;
+      padding: 0.82rem 2.8rem 0.82rem 2.6rem;
+      color: var(--cream);
+      font-family: 'Jost', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      letter-spacing: 0.03em;
+      transition: border-color 0.25s, background 0.25s;
+      outline: none;
+      margin-bottom: 1.4rem;
+    }
+    .luxury-input::placeholder { color: var(--muted-dark); }
+    .luxury-input:focus {
+      border-color: rgba(201,168,76,0.5);
+      background: rgba(11,20,38,0.9);
+    }
+
+    /* remember + forgot row */
+    .auth-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.8rem;
+      margin-top: -0.4rem;
+    }
+    .remember-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .remember-wrap input[type="checkbox"] {
+      width: 16px; height: 16px;
+      accent-color: var(--gold);
+      cursor: pointer;
+    }
+    .remember-label {
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      cursor: pointer;
+    }
+    .forgot-link {
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .forgot-link:hover { color: var(--gold-light); text-decoration: none; }
+
+    /* buttons */
+    .btn-auth-primary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 0.88rem 1.5rem;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      color: var(--navy);
+      font-family: 'Jost', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      margin-bottom: 0.75rem;
+    }
+    .btn-auth-primary:hover { opacity: 0.87; transform: translateY(-1px); }
+    .btn-auth-primary:active { transform: translateY(0); }
+
+    .btn-auth-outline {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 0.82rem 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: transparent;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .btn-auth-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold-light);
+      background: rgba(201,168,76,0.06);
+    }
+
+    /* divider with OR */
+    .or-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 1.5rem 0;
+    }
+    .or-divider::before,
+    .or-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border-soft);
+    }
+    .or-text {
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      color: var(--muted-dark);
+      text-transform: uppercase;
+    }
+
+    /* bottom note */
+    .auth-note {
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: var(--muted-dark);
+      letter-spacing: 0.05em;
+      margin-top: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .auth-note i { color: var(--gold); font-size: 0.68rem; }
+
+    @media (max-width: 480px) {
+      .auth-card { padding: 2.2rem 1.6rem 2rem; }
+      .auth-title { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-deco">
+    <span></span><span></span><span></span><span></span>
   </div>
-  <div class="form-group">
-    <input type="password" class="form-control form-control-lg mb-3 border-primary" id="password" placeholder="Password">
-  </div>
- <div class="form-group d-flex justify-content-between align-items-center mb-3">
-        <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="rememberMe">
-            <label class="form-check-label" for="rememberMe">Remember me</label>
-        </div>
-        <a href="http://127.0.0.1:5500/vcode.html" class="text-primary">Forgot password?</a>
+
+  <div class="auth-card">
+
+    <img src="./Cr@ckflow Logo.png" alt="Cr@ckFlow logo" class="auth-logo">
+
+    <div class="auth-icon">
+      <i class="fas fa-user"></i>
     </div>
 
+    <div class="auth-eyebrow">Welcome Back</div>
+    <h1 class="auth-title">Log In</h1>
+    <p class="auth-subtitle">Don't have an account?</p>
+    <a href="http://127.0.0.1:5500/signup.html" class="auth-signup-link">
+      Sign up here →
+    </a>
 
-  <div class="text-left">
-    <button type="submit" class="btn btn-outline-success mb-3 mt-3">LOG IN</button>
-    <button type="reset" class="btn btn-outline-primary mb-3 mt-3">CLEAR</button>
-</div>
-</form>
-       </div>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-        </body>
+    <hr class="auth-divider">
+
+    <form method="POST" action="/auth/login">
+
+      <!-- Email -->
+      <label class="field-label" for="email">Email Address</label>
+      <div class="input-wrap">
+        <i class="fas fa-envelope input-icon"></i>
+        <input
+          type="email"
+          name="email"
+          class="luxury-input"
+          id="email"
+          placeholder="you@example.com"
+          required>
+      </div>
+
+      <!-- Password -->
+      <label class="field-label" for="password">Password</label>
+      <div class="input-wrap">
+        <i class="fas fa-lock input-icon"></i>
+        <input
+          type="password"
+          name="password"
+          class="luxury-input"
+          id="password"
+          placeholder="Enter your password"
+          required>
+        <button type="button" class="pw-toggle" id="pwToggle" aria-label="Toggle password visibility">
+          <i class="fas fa-eye" id="pwIcon"></i>
+        </button>
+      </div>
+
+      <!-- Remember me + Forgot -->
+      <div class="auth-row">
+        <label class="remember-wrap">
+          <input type="checkbox" name="rememberMe" id="rememberMe">
+          <span class="remember-label">Remember me</span>
+        </label>
+        <a href="http://127.0.0.1:5500/enteremail.html" class="forgot-link">Forgot password?</a>
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="btn-auth-primary">
+        <i class="fas fa-sign-in-alt" style="font-size:0.75rem;"></i> Log In
+      </button>
+
+      <div class="or-divider"><span class="or-text">or</span></div>
+
+      <!-- Clear -->
+      <button type="reset" class="btn-auth-outline">
+        <i class="fas fa-times" style="font-size:0.72rem;"></i> Clear Fields
+      </button>
+
+    </form>
+
+    <p class="auth-note">
+      <i class="fas fa-lock"></i> Your credentials are encrypted and secure.
+    </p>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // password show/hide toggle
+    document.getElementById('pwToggle').addEventListener('click', function () {
+      var input = document.getElementById('password');
+      var icon  = document.getElementById('pwIcon');
+      if (input.type === 'password') {
+        input.type = 'text';
+        icon.classList.replace('fa-eye', 'fa-eye-slash');
+      } else {
+        input.type = 'password';
+        icon.classList.replace('fa-eye-slash', 'fa-eye');
+      }
+    });
+  </script>
+</body>
 </html>

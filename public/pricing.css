@@ -1,0 +1,278 @@
+/* ── PRICING PAGE STYLES ── */
+
+/* Page header */
+.page-header {
+  padding: 5rem 0 3.5rem;
+  position: relative;
+  overflow: hidden;
+  background: var(--navy-mid);
+}
+.page-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+}
+.page-header-glow {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(201,168,76,0.07) 0%, transparent 65%);
+  pointer-events: none;
+}
+.page-eyebrow {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 0.9rem;
+}
+.page-eyebrow::before,
+.page-eyebrow::after {
+  content: '';
+  display: inline-block;
+  width: 28px; height: 1px;
+  background: var(--gold);
+  opacity: 0.6;
+}
+.page-header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  font-weight: 500;
+  color: var(--white);
+  text-align: center;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.8rem;
+  line-height: 1.1;
+}
+.page-header p {
+  font-size: 0.92rem;
+  font-weight: 300;
+  color: var(--muted);
+  text-align: center;
+  max-width: 480px;
+  margin: 0 auto;
+  letter-spacing: 0.04em;
+  line-height: 1.75;
+}
+
+/* ── PRICING SECTION ── */
+.section-pricing {
+  padding: 4rem 0 5rem;
+  background: var(--navy);
+  position: relative;
+}
+.section-pricing::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), transparent);
+}
+
+/* Pricing card */
+.pricing-card {
+  background: rgba(19,32,64,0.65);
+  border: 1px solid var(--border-soft);
+  border-radius: 18px;
+  padding: 2.2rem 1.8rem 2rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.28s, background 0.3s;
+}
+.pricing-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.pricing-card:hover {
+  border-color: var(--border);
+  background: rgba(19,32,64,0.9);
+  transform: translateY(-5px);
+}
+.pricing-card:hover::before { opacity: 1; }
+
+/* Featured / popular card */
+.pricing-card.featured {
+  border-color: rgba(201,168,76,0.5);
+  background: rgba(19,32,64,0.85);
+}
+.pricing-card.featured::before { opacity: 1; }
+
+.popular-badge {
+  position: absolute;
+  top: 16px; right: 16px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--navy);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 0.28rem 0.75rem;
+  border-radius: 20px;
+}
+
+/* card icon */
+.pricing-icon {
+  width: 46px; height: 46px;
+  border-radius: 12px;
+  background: rgba(201,168,76,0.1);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: var(--gold);
+  margin-bottom: 1.2rem;
+}
+
+.pricing-card h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--white);
+  margin-bottom: 0.3rem;
+  letter-spacing: 0.03em;
+}
+.pricing-validity {
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+  margin-bottom: 1.2rem;
+}
+
+/* price display */
+.price-wrap {
+  display: flex;
+  align-items: flex-start;
+  gap: 3px;
+  margin-bottom: 1.4rem;
+}
+.price-currency {
+  font-family: 'Jost', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--gold);
+  margin-top: 6px;
+}
+.price-amount {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  font-weight: 500;
+  color: var(--gold-light);
+  line-height: 1;
+}
+.price-cents {
+  font-family: 'Jost', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--gold);
+  margin-top: 6px;
+}
+
+/* gold divider */
+.pricing-divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, var(--border-soft), var(--border), var(--border-soft));
+  margin: 0 0 1.4rem;
+}
+
+/* feature list */
+.pricing-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.8rem;
+  flex: 1;
+}
+.pricing-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--cream);
+  letter-spacing: 0.025em;
+  line-height: 1.6;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid rgba(201,168,76,0.06);
+}
+.pricing-features li:last-child { border-bottom: none; }
+.pricing-features li i {
+  color: var(--gold);
+  font-size: 0.72rem;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+/* CTA button */
+.btn-pricing {
+  display: block;
+  width: 100%;
+  padding: 0.8rem 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold) !important;
+  text-align: center;
+  text-decoration: none;
+  background: transparent;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  cursor: pointer;
+}
+.btn-pricing:hover {
+  background: rgba(201,168,76,0.1);
+  border-color: var(--gold);
+  color: var(--gold-light) !important;
+  text-decoration: none;
+}
+.pricing-card.featured .btn-pricing {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  border-color: transparent;
+  color: var(--navy) !important;
+}
+.pricing-card.featured .btn-pricing:hover {
+  opacity: 0.88;
+  color: var(--navy) !important;
+}
+
+/* notice */
+.pricing-notice {
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  margin-top: 2.5rem;
+}
+.pricing-notice a {
+  color: var(--gold);
+  text-decoration: none;
+}
+.pricing-notice a:hover { color: var(--gold-light); }
+
+@media (max-width: 768px) {
+  .page-header { padding: 3.5rem 0 2.5rem; }
+  .pricing-card { margin-bottom: 0; }
+}

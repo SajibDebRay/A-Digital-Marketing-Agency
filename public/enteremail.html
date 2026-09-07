@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Enter Email | Cr@ckFlow</title>
+  <meta name="description" content="Cr@ckFlow is a Digital Marketing Website">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy:        #0b1426;
+      --navy-mid:    #132040;
+      --navy-light:  #1c2e57;
+      --gold:        #c9a84c;
+      --gold-light:  #e8c97a;
+      --cream:       #f7f3ec;
+      --white:       #ffffff;
+      --muted:       #8a96b0;
+      --muted-dark:  #4a5470;
+      --border:      rgba(201,168,76,0.22);
+      --border-soft: rgba(201,168,76,0.12);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Jost', sans-serif;
+      background: var(--navy);
+      background-image:
+        radial-gradient(ellipse at 15% 20%, rgba(201,168,76,0.06) 0%, transparent 55%),
+        radial-gradient(ellipse at 85% 80%, rgba(28,46,87,0.6) 0%, transparent 55%);
+      padding: 2rem 1rem;
+    }
+
+    /* floating particles decoration */
+    .bg-decoration {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .bg-decoration span {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.04);
+      border: 1px solid rgba(201,168,76,0.08);
+    }
+    .bg-decoration span:nth-child(1) { width:300px; height:300px; top:-60px; left:-80px; }
+    .bg-decoration span:nth-child(2) { width:200px; height:200px; bottom:40px; right:-60px; }
+    .bg-decoration span:nth-child(3) { width:120px; height:120px; top:40%; right:8%; }
+
+    /* card */
+    .auth-card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 460px;
+      background: rgba(19,32,64,0.8);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3rem 2.8rem 2.5rem;
+      backdrop-filter: blur(16px);
+      overflow: hidden;
+    }
+    .auth-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+    }
+    .auth-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 160px; height: 160px;
+      background: radial-gradient(circle at bottom right, rgba(201,168,76,0.07), transparent 70%);
+      pointer-events: none;
+    }
+
+    /* logo */
+    .auth-logo {
+      display: block;
+      width: 68px;
+      margin: 0 auto 1.6rem;
+    }
+
+    /* icon circle */
+    .auth-icon {
+      width: 58px; height: 58px;
+      border-radius: 50%;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.4rem;
+      font-size: 1.35rem;
+      color: var(--gold);
+    }
+
+    .auth-eyebrow {
+      font-size: 0.67rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-align: center;
+      margin-bottom: 0.4rem;
+    }
+    .auth-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 500;
+      color: var(--white);
+      text-align: center;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.5rem;
+      line-height: 1.15;
+    }
+    .auth-subtitle {
+      font-size: 0.83rem;
+      font-weight: 300;
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.7;
+      letter-spacing: 0.04em;
+      margin-bottom: 2.2rem;
+    }
+
+    /* gold divider */
+    .auth-divider {
+      border: none;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+      margin: 0 0 2rem;
+    }
+
+    /* field label */
+    .field-label {
+      font-size: 0.67rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.45rem;
+    }
+
+    /* input */
+    .input-wrap { position: relative; }
+    .input-icon {
+      position: absolute;
+      left: 14px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--gold);
+      opacity: 0.55;
+      font-size: 0.85rem;
+      pointer-events: none;
+    }
+    .luxury-input {
+      width: 100%;
+      background: rgba(11,20,38,0.6);
+      border: 1px solid var(--border-soft);
+      border-radius: 10px;
+      padding: 0.82rem 1rem 0.82rem 2.6rem;
+      color: var(--cream);
+      font-family: 'Jost', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 300;
+      letter-spacing: 0.03em;
+      transition: border-color 0.25s, background 0.25s;
+      outline: none;
+      margin-bottom: 1.6rem;
+    }
+    .luxury-input::placeholder { color: var(--muted-dark); }
+    .luxury-input:focus {
+      border-color: rgba(201,168,76,0.5);
+      background: rgba(11,20,38,0.88);
+    }
+
+    /* submit button */
+    .btn-auth {
+      display: block;
+      width: 100%;
+      padding: 0.88rem 1.5rem;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      color: var(--navy);
+      font-family: 'Jost', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn-auth:hover { opacity: 0.87; transform: translateY(-1px); }
+    .btn-auth:active { transform: translateY(0); }
+
+    /* back link */
+    .auth-back {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      margin-top: 1.5rem;
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      transition: color 0.2s;
+    }
+    .auth-back:hover { color: var(--gold-light); text-decoration: none; }
+    .auth-back i { font-size: 0.7rem; }
+
+    /* security note */
+    .auth-note {
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: var(--muted-dark);
+      letter-spacing: 0.05em;
+      margin-top: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .auth-note i { color: var(--gold); font-size: 0.68rem; }
+
+    @media (max-width: 480px) {
+      .auth-card { padding: 2.2rem 1.6rem 2rem; }
+      .auth-title { font-size: 1.7rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- background decoration -->
+  <div class="bg-decoration">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- auth card -->
+  <div class="auth-card">
+
+    <img src="Cr@ckFlow Logo.png" alt="Cr@ckFlow logo" class="auth-logo">
+
+    <div class="auth-icon">
+      <i class="fas fa-envelope"></i>
+    </div>
+
+    <div class="auth-eyebrow">Password Recovery</div>
+    <h1 class="auth-title">Enter Your Email</h1>
+    <p class="auth-subtitle">We'll send a verification code to your email address so you can reset your password.</p>
+
+    <hr class="auth-divider">
+
+    <form id="forgotForm">
+      <label class="field-label" for="email">Email Address</label>
+      <div class="input-wrap">
+        <i class="fas fa-envelope input-icon"></i>
+        <input
+          class="luxury-input"
+          id="email"
+          type="email"
+          name="email"
+          placeholder="you@example.com"
+          required>
+      </div>
+
+      <button type="submit" class="btn-auth">
+        <i class="fas fa-paper-plane" style="font-size:0.7rem;"></i>
+        Send Verification Code
+      </button>
+    </form>
+
+    <a href="http://127.0.0.1:5500/home.html" class="auth-back">
+      <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+
+    <p class="auth-note">
+      <i class="fas fa-lock"></i> Your email is secure and will never be shared.
+    </p>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/js/enteremail.js"></script>
+</body>
+</html>

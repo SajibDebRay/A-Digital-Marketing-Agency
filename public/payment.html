@@ -2,138 +2,375 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Payment Gateway | Cr@ckFlow</title>
-
-  <!-- Bootstrap 4.6.2 -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.2/css/bootstrap.min.css">
-
-  <style>
-    body {
-      background-color: #0f0e17;
-      color: #fff;
-      font-family: 'Poppins', sans-serif;
-      min-height: 100vh;
-    }
-
-    .payment-card {
-      background: #1a1a2e;
-      border-radius: 16px;
-      padding: 40px;
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.08);
-      max-width: 600px;
-      margin: 80px auto;
-    }
-
-    .btn-pay {
-      width: 100%;
-      padding: 15px;
-      border-radius: 10px;
-      font-weight: 600;
-      font-size: 18px;
-      transition: all 0.3s ease;
-    }
-
-    .btn-pay:hover {
-      transform: scale(1.03);
-      opacity: 0.9;
-    }
-
-    .paypal {
-      background: #0070ba;
-      color: white;
-      border: none;
-    }
-
-    .skrill {
-      background: #7b158f;
-      color: white;
-      border: none;
-    }
-
-    .price-display {
-      font-size: 42px;
-      font-weight: bold;
-      color: #e0e0e0;
-      margin-bottom: 15px;
-    }
-
-    .divider {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-      margin: 25px 0;
-    }
-
-    /* Make inputs bigger and add spacing */
-    .form-control {
-      font-size: 1.1rem;
-      padding: 14px 16px;
-      border-radius: 8px;
-      background-color: #22223b;
-      border: 1px solid #444;
-      color: #fff;
-    }
-
-    .form-control:focus {
-      border-color: #0070ba;
-      box-shadow: 0 0 5px rgba(0, 112, 186, 0.6);
-    }
-
-    label {
-      font-weight: 600;
-      font-size: 1.1rem;
-      margin-bottom: 10px;
-      display: block;
-    }
-
-    .form-group {
-      margin-bottom: 35px; /* Increased gap between email and payment sections */
-    }
-
-    .text-muted {
-      color: #aaa !important;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment | Cr@ckFlow</title>
+  <meta name="description" content="Cr@ckFlow Secure Payment Page">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <!-- BUG FIX: was using Playfair/DM Sans — now consistent with the design system -->
+  <!-- BUG FIX: was missing entirely — payment.css now linked -->
+  <link rel="stylesheet" href="payment.css">
 </head>
-
 <body>
-  <div class="container text-center">
+
+  <!-- ── NAVBAR ── -->
+  <!-- BUG FIX: removed duplicate type="button" attribute on toggler -->
+  <nav class="navbar navbar-expand-sm navbar-dark mb-0">
+    <a href="http://127.0.0.1:5500/home.html" class="navbar-brand">
+      <img src="Cr@ckFlow Logo.png" alt="Cr@ckFlow logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+      data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto align-items-center">
+        <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:5500/home.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:5500/portfolio.html">Portfolio</a></li>
+        <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:5500/blog.html">Blog</a></li>
+        <li class="nav-item"><a class="nav-link active" href="http://127.0.0.1:5500/pricing.html">Pricing</a></li>
+        <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:5500/contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:5500/aboutus.html">About</a></li>
+        <li class="nav-item dropdown ml-2">
+          <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown"
+            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user-circle fa-lg" style="color: var(--gold);"></i>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+            <a class="dropdown-item" href="http://127.0.0.1:5500/accountdetais.html">
+              <i class="fas fa-user-circle"></i> Account Details
+            </a>
+            <a class="dropdown-item" href="http://127.0.0.1:5500/refer.html">
+              <i class="fas fa-share-alt"></i> Refer
+            </a>
+            <div style="height:1px; background:var(--border); margin:0.3rem 0.8rem;"></div>
+            <a class="dropdown-item" href="/auth/logout" style="color:#e07070 !important;">
+              <i class="fas fa-sign-out-alt"></i> Log Out
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <hr class="gold-rule">
+
+  <!-- ── PAGE HEADER ── -->
+  <div class="page-header-bar">
+    <h1>Payment</h1>
+  </div>
+  <div class="page-sub-bar">
+    <p>Complete your order securely</p>
+  </div>
+
+  <!-- bg blobs -->
+  <div class="bg-blob blob-1"></div>
+  <div class="bg-blob blob-2"></div>
+
+  <div class="page-wrapper d-flex align-items-start justify-content-center">
     <div class="payment-card">
-      <h2 class="mb-4 font-weight-bold">Cr@ckFlow Payment</h2>
-      <p class="lead" id="serviceName">Service Name</p>
-      <div class="price-display" id="servicePrice">$0.00</div>
-      <p class="text-muted">Please select a payment method below</p>
+      <div class="row no-gutters">
 
-      <div class="divider"></div>
+        <!-- ════ LEFT PANEL ════ -->
+        <div class="col-md-5 left-panel d-flex flex-column">
 
-      <form id="paymentForm">
-        <input type="hidden" id="amountInput">
-        <input type="hidden" id="serviceInput">
+          <div class="brand-mark">
+            <span class="brand-logo">Cr@ckFlow</span>
+            <span class="brand-tagline">Digital Marketing Agency</span>
+          </div>
 
-        <div class="form-group text-left">
-          <label for="email">Your Email</label>
-          <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+          <div class="service-block flex-grow-1">
+            <div class="service-tag">Selected Package</div>
+            <h2 class="service-name" id="serviceName">Loading…</h2>
+            <p class="service-desc" id="serviceDesc">Please wait while we load your order details.</p>
+
+            <div class="price-display">
+              <span class="currency">$</span>
+              <span class="amount" id="serviceAmount">0.00</span>
+            </div>
+
+            <div class="service-perks">
+              <div class="perk-item"><i class="fas fa-check-circle"></i> Dedicated account manager</div>
+              <div class="perk-item"><i class="fas fa-check-circle"></i> Instant order confirmation</div>
+              <div class="perk-item"><i class="fas fa-check-circle"></i> 24/7 priority support</div>
+              <div class="perk-item"><i class="fas fa-check-circle"></i> Cancel anytime</div>
+            </div>
+          </div>
+
+          <div class="order-summary">
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <span id="subtotal">$0.00</span>
+            </div>
+            <div class="summary-row">
+              <span>Tax (0%)</span>
+              <span>$0.00</span>
+            </div>
+            <div class="summary-divider"></div>
+            <div class="summary-row total-row">
+              <span>Total Due Today</span>
+              <span id="totalDue">$0.00</span>
+            </div>
+          </div>
+
+          <div class="secure-note">
+            <i class="fas fa-lock"></i>
+            <span>Payments are 256-bit SSL encrypted &amp; secure</span>
+          </div>
+
+        </div><!-- /left-panel -->
+
+        <!-- ════ RIGHT PANEL ════ -->
+        <div class="col-md-7 right-panel">
+
+          <div class="right-header">
+            <h3 class="section-title">Complete Your Payment</h3>
+            <p class="section-sub">Fill in your details below to proceed</p>
+          </div>
+
+          <!-- Contact Information -->
+          <div class="form-section">
+            <div class="form-section-label">
+              <span class="step-badge">01</span>
+              Contact Information
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-sm-6">
+                <label for="firstName">First Name</label>
+                <input type="text" class="form-control custom-input" id="firstName" placeholder="John">
+                <div class="invalid-feedback">Please enter your first name.</div>
+              </div>
+              <div class="form-group col-sm-6">
+                <label for="lastName">Last Name</label>
+                <input type="text" class="form-control custom-input" id="lastName" placeholder="Doe">
+                <div class="invalid-feedback">Please enter your last name.</div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" class="form-control custom-input" id="email" placeholder="you@example.com">
+              <div class="invalid-feedback">Please enter a valid email address.</div>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number <span class="optional-tag">optional</span></label>
+              <input type="tel" class="form-control custom-input" id="phone" placeholder="+880 1700 000000">
+            </div>
+          </div>
+
+          <!-- Payment Method -->
+          <div class="form-section">
+            <div class="form-section-label">
+              <span class="step-badge">02</span>
+              Payment Method
+            </div>
+
+            <div class="payment-methods">
+
+              <!-- Stripe -->
+              <label class="payment-option active" for="stripe">
+                <input type="radio" name="paymentMethod" id="stripe" value="stripe" checked>
+                <div class="payment-option-inner">
+                  <div class="payment-icon stripe-icon">
+                    <svg viewBox="0 0 60 25" xmlns="http://www.w3.org/2000/svg" width="52" height="22">
+                      <path fill="#635BFF" d="M59.64 14.28h-8.06c.19 1.93 1.6 2.55 3.2 2.55 1.64 0 2.96-.37 4.05-.95v3.32a8.33 8.33 0 0 1-4.56 1.1c-4.01 0-6.83-2.5-6.83-7.48 0-4.19 2.39-7.52 6.3-7.52 3.92 0 5.96 3.28 5.96 7.5 0 .4-.04 1.26-.06 1.48zm-5.92-5.62c-1.03 0-2.17.73-2.17 2.58h4.25c0-1.85-1.07-2.58-2.08-2.58zM40.95 20.3c-1.44 0-2.32-.6-2.9-1.04l-.02 4.63-4.12.87V5.57h3.76l.08 1.02a4.7 4.7 0 0 1 3.23-1.29c2.9 0 5.62 2.6 5.62 7.4 0 5.23-2.7 7.6-5.65 7.6zM40 8.95c-.95 0-1.54.34-1.97.81l.02 6.12c.4.44.98.78 1.95.78 1.52 0 2.54-1.65 2.54-3.87 0-2.15-1.04-3.84-2.54-3.84zM28.24 5.57h4.13v14.44h-4.13V5.57zm0-4.7L32.37 0v3.36l-4.13.88V.88zm-4.32 9.35v9.79H19.8V5.57h3.7l.12 1.22c1-1.77 3.07-1.41 3.62-1.22v3.79c-.52-.17-2.29-.43-3.32.87zm-8.55 4.72c0 2.43 2.6 1.68 3.12 1.46v3.36c-.55.3-1.54.54-2.89.54a4.15 4.15 0 0 1-4.27-4.24l.01-13.17 4.02-.86v3.54h3.14V9.1h-3.13v5.85zm-4.91.7c0 2.97-2.31 4.66-5.73 4.66a11.2 11.2 0 0 1-4.46-.93v-3.93c1.38.75 3.1 1.31 4.46 1.31.92 0 1.53-.24 1.53-1C6.26 13.77 0 14.51 0 9.95 0 7.04 2.28 5.3 5.62 5.3c1.5 0 2.99.36 4.46.93v3.93C8.75 9.4 7.1 8.9 5.62 8.9c-.87 0-1.44.25-1.44.99 0 1.85 5.82.94 5.82 5.95z"/>
+                    </svg>
+                  </div>
+                  <div class="payment-info">
+                    <span class="payment-name">Stripe</span>
+                    <span class="payment-sub">Visa, Mastercard, Amex &amp; more</span>
+                  </div>
+                  <div class="payment-check"><i class="fas fa-check"></i></div>
+                </div>
+              </label>
+
+              <!-- Skrill -->
+              <label class="payment-option" for="skrill">
+                <input type="radio" name="paymentMethod" id="skrill" value="skrill">
+                <div class="payment-option-inner">
+                  <div class="payment-icon skrill-icon">
+                    <svg viewBox="0 0 80 30" xmlns="http://www.w3.org/2000/svg" width="64" height="24">
+                      <rect width="80" height="30" rx="4" fill="#862165"/>
+                      <text x="10" y="22" font-family="Arial Black,sans-serif" font-weight="900" font-size="18" fill="white" letter-spacing="1">Skrill</text>
+                      <circle cx="68" cy="15" r="7" fill="#00B4E6"/>
+                    </svg>
+                  </div>
+                  <div class="payment-info">
+                    <span class="payment-name">Skrill</span>
+                    <span class="payment-sub">Digital wallet &amp; bank transfer</span>
+                  </div>
+                  <div class="payment-check"><i class="fas fa-check"></i></div>
+                </div>
+              </label>
+
+              <!-- Payoneer -->
+              <label class="payment-option" for="payoneer">
+                <input type="radio" name="paymentMethod" id="payoneer" value="payoneer">
+                <div class="payment-option-inner">
+                  <div class="payment-icon payoneer-icon">
+                    <svg viewBox="0 0 100 30" xmlns="http://www.w3.org/2000/svg" width="80" height="24">
+                      <rect width="100" height="30" rx="4" fill="#FF4B37"/>
+                      <text x="8" y="22" font-family="Arial,sans-serif" font-weight="700" font-size="15" fill="white" letter-spacing="0.5">Payoneer</text>
+                    </svg>
+                  </div>
+                  <div class="payment-info">
+                    <span class="payment-name">Payoneer</span>
+                    <span class="payment-sub">Global payments &amp; transfers</span>
+                  </div>
+                  <div class="payment-check"><i class="fas fa-check"></i></div>
+                </div>
+              </label>
+
+            </div><!-- /payment-methods -->
+
+            <!-- ── Stripe fields ── -->
+            <div id="stripeFields" class="payment-fields mt-3">
+              <div class="form-group">
+                <label for="cardNumber">Card Number</label>
+                <div class="input-icon-wrap">
+                  <input type="text" class="form-control custom-input" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+                  <i class="far fa-credit-card input-icon" id="cardBrandIcon"></i>
+                </div>
+                <div class="invalid-feedback" id="cardNumberFeedback">Enter a valid 16-digit card number.</div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-sm-6">
+                  <label for="expiry">Expiry Date</label>
+                  <input type="text" class="form-control custom-input" id="expiry" placeholder="MM / YY" maxlength="7">
+                  <div class="invalid-feedback">Enter a valid expiry date.</div>
+                </div>
+                <div class="form-group col-sm-6">
+                  <label for="cvv">CVV</label>
+                  <div class="input-icon-wrap">
+                    <input type="text" class="form-control custom-input" id="cvv" placeholder="•••" maxlength="4">
+                    <i class="fas fa-question-circle input-icon" title="3 or 4 digit security code on the back of your card"></i>
+                  </div>
+                  <div class="invalid-feedback" id="cvvFeedback">Enter a valid CVV.</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="cardName">Name on Card</label>
+                <input type="text" class="form-control custom-input" id="cardName" placeholder="John Doe">
+                <div class="invalid-feedback">Please enter the name on the card.</div>
+              </div>
+              <div class="form-group">
+                <label for="stripeBalance">Account Balance ($) <span class="optional-tag">for demo</span></label>
+                <input type="number" class="form-control custom-input" id="stripeBalance" placeholder="e.g. 200">
+                <div class="invalid-feedback" id="stripeBalanceFeedback">Please enter your balance.</div>
+              </div>
+            </div>
+
+            <!-- ── Skrill fields ── -->
+            <!-- BUG FIX: added id="skrillAmount" so JS doesn't crash on this element -->
+            <div id="skrillFields" class="payment-fields mt-3" style="display:none;">
+              <div class="amount-reminder">
+                <i class="fas fa-info-circle"></i>
+                Amount to pay: <strong id="skrillAmount">$0.00</strong>
+              </div>
+              <div class="form-group">
+                <label for="skrillEmail">Skrill Email</label>
+                <input type="email" class="form-control custom-input" id="skrillEmail" placeholder="your-skrill@email.com">
+                <div class="invalid-feedback">Enter a valid Skrill email.</div>
+              </div>
+              <div class="form-group">
+                <label for="skrillBalance">Account Balance ($) <span class="optional-tag">for demo</span></label>
+                <input type="number" class="form-control custom-input" id="skrillBalance" placeholder="Enter your available Skrill balance">
+                <div class="invalid-feedback" id="skrillBalanceFeedback">Please enter your balance.</div>
+              </div>
+            </div>
+
+            <!-- ── Payoneer fields ── -->
+            <!-- BUG FIX: added id="payoneerAmount" so JS doesn't crash on this element -->
+            <div id="payoneerFields" class="payment-fields mt-3" style="display:none;">
+              <div class="amount-reminder">
+                <i class="fas fa-info-circle"></i>
+                Amount to pay: <strong id="payoneerAmount">$0.00</strong>
+              </div>
+              <div class="form-group">
+                <label for="payoneerEmail">Payoneer Email</label>
+                <input type="email" class="form-control custom-input" id="payoneerEmail" placeholder="your-payoneer@email.com">
+                <div class="invalid-feedback">Enter a valid Payoneer email.</div>
+              </div>
+              <div class="form-group">
+                <label for="payoneerBalance">Account Balance ($) <span class="optional-tag">for demo</span></label>
+                <input type="number" class="form-control custom-input" id="payoneerBalance" placeholder="Enter your available Payoneer balance">
+                <div class="invalid-feedback" id="payoneerBalanceFeedback">Please enter your balance.</div>
+              </div>
+            </div>
+
+          </div><!-- /payment-method section -->
+
+          <!-- Save info -->
+          <div class="save-info-row">
+            <label class="custom-checkbox-label" for="saveInfo">
+              <input type="checkbox" id="saveInfo">
+              <span class="checkmark"></span>
+              <div class="save-text">
+                <span class="save-title">Save my information for faster checkout</span>
+                <span class="save-sub">Your details are encrypted and stored securely</span>
+              </div>
+            </label>
+          </div>
+
+          <!-- Proceed -->
+          <button class="btn-proceed w-100" id="proceedBtn" onclick="handlePayment()">
+            <span class="btn-text">
+              <i class="fas fa-lock btn-icon"></i>
+              Proceed to Pay — <span id="btnAmount">$0.00</span>
+            </span>
+            <span class="btn-loading" style="display:none;">
+              <i class="fas fa-spinner fa-spin"></i> Processing…
+            </span>
+          </button>
+
+          <p class="terms-note">By proceeding, you agree to our <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.</p>
+
+        </div><!-- /right-panel -->
+      </div><!-- /row -->
+    </div><!-- /payment-card -->
+  </div><!-- /page-wrapper -->
+
+  <!-- ── SUCCESS MODAL ── -->
+  <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content result-modal success-modal">
+        <div class="result-icon-wrap success-wrap">
+          <div class="result-ring success-ring"></div>
+          <i class="fas fa-check result-icon success-icon"></i>
         </div>
-
-        <div class="form-group text-left">
-          <label>Choose Payment Method</label>
-          <select id="paymentMethod" class="form-control" required>
-            <option value="">-- Select Method --</option>
-            <option value="paypal">PayPal</option>
-            <option value="skrill">Skrill</option>
-          </select>
-        </div>
-
-        <button type="submit" class="btn btn-pay paypal mt-2" id="payBtn">Proceed to Pay</button>
-      </form>
+        <h4 class="result-title">Payment Successful!</h4>
+        <p class="result-sub">Your order for <strong id="successService"></strong> has been placed. A confirmation has been sent to <strong id="receiptEmail"></strong>.</p>
+        <a href="http://127.0.0.1:5500/pricing.html" class="btn-proceed mt-3 d-block text-center text-decoration-none">
+          Back to Pricing
+        </a>
+      </div>
     </div>
   </div>
 
-  <!-- Bootstrap & jQuery -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- ── INSUFFICIENT BALANCE MODAL ── -->
+  <div class="modal fade" id="insufficientModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content result-modal insufficient-modal">
+        <div class="result-icon-wrap insufficient-wrap">
+          <div class="result-ring insufficient-ring"></div>
+          <i class="fas fa-times result-icon insufficient-icon"></i>
+        </div>
+        <h4 class="result-title insufficient-title">Insufficient Balance</h4>
+        <p class="result-sub">Your account balance is too low to complete this payment.</p>
+        <div class="balance-breakdown">
+          <div class="bb-row"><span>Required Amount</span><span id="requiredAmt" class="bb-required"></span></div>
+          <div class="bb-row"><span>Your Balance</span><span id="yourBalance" class="bb-yours"></span></div>
+          <div class="bb-row bb-deficit"><span>Shortfall</span><span id="deficitAmt"></span></div>
+        </div>
+        <p class="result-sub mt-2">Please top up your account and try again, or choose a different payment method.</p>
+        <button class="btn-proceed insufficient-btn mt-3 w-100" data-dismiss="modal">Try Again</button>
+      </div>
+    </div>
+  </div>
 
-  <!-- External JS -->
-  <script src="payment.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./js/payment.js"></script>
+  <script src="./js/service-options.js"></script>
 </body>
 </html>
-

@@ -20,4 +20,3 @@ userSchema.methods.comparePassword = async function(candidatePwd) {
 };
 
 module.exports = mongoose.model('User', userSchema);
-

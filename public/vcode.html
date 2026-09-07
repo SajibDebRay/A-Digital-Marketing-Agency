@@ -1,38 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-       <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Verification Code|Cr@ckFlow</title>
-    <meta name="description" content="Cr@ckFlow is a Digital Marketing Website">
-    <meta property="og:description" content="Cr@ackFlow gives you the best">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Verification Code | Cr@ckFlow</title>
+  <meta name="description" content="Cr@ckFlow is a Digital Marketing Website">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="vcode.css">
+</head>
+<body>
 
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    </head>
-    <body class="d-flex justify-content-center align-items-center" style="background-color: rgb(203, 201, 198); ">
-       <div class="container-md mt-3">
-        <form class="form m-auto col-lg-6 col-md-8 col-11 text-center bg-white p-4 rounded">
-            <img src="Cr@ckFlow Logo.png" alt="logo" class="img-fluid" style="width: 90px;">
-  <h1 class="text-primary">Verification Code</h1>
-    <p class="mb-3">Please Enter the code here!!</p>
-    
- 
-   <div class="form-group">
-    <input type="text" class="form-control form-control-lg mb-3 border-primary" id="text" placeholder="Verification Code">
+  <div class="bg-deco">
+    <span></span><span></span><span></span><span></span>
   </div>
 
+  <div class="auth-card">
 
+    <img src="Cr@ckFlow Logo.png" alt="Cr@ckFlow logo" class="auth-logo">
 
+    <div class="auth-icon">
+      <i class="fas fa-shield-alt"></i>
+    </div>
 
-  <div class="text-left">
-    <button type="submit" class="btn btn-outline-success mb-3 mt-3">Verify</button>
-    <button type="reset" class="btn btn-outline-primary mb-3 mt-3">CLEAR</button>
-</div>
-</form>
-       </div>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-        </body>
+    <div class="auth-eyebrow">Two-Step Verification</div>
+    <h1 class="auth-title">Enter Code</h1>
+    <p class="auth-subtitle">
+      We sent a 6-digit verification code to<br>
+      <span id="emailDisplay">your email address</span>
+    </p>
+
+    <hr class="auth-divider">
+
+    <form id="verificationForm" novalidate>
+
+      <!-- hidden input synced with OTP boxes (for vcode.js compatibility) -->
+      <input type="text" id="codeInput" name="code" maxlength="6" pattern="\d{6}" required>
+
+      <!-- OTP digit boxes -->
+      <label class="otp-label">Verification Code</label>
+      <div class="otp-group" id="otpGroup">
+        <input class="otp-box" type="text" inputmode="numeric" maxlength="1" data-index="0" autocomplete="off">
+        <input class="otp-box" type="text" inputmode="numeric" maxlength="1" data-index="1" autocomplete="off">
+        <input class="otp-box" type="text" inputmode="numeric" maxlength="1" data-index="2" autocomplete="off">
+        <input class="otp-box" type="text" inputmode="numeric" maxlength="1" data-index="3" autocomplete="off">
+        <input class="otp-box" type="text" inputmode="numeric" maxlength="1" data-index="4" autocomplete="off">
+        <input class="otp-box" type="text" inputmode="numeric" maxlength="1" data-index="5" autocomplete="off">
+      </div>
+
+      <div class="val-msg error" id="codeError">
+        <i class="fas fa-exclamation-circle"></i> Please enter the full 6-digit code.
+      </div>
+      <div class="val-msg error" id="digitsError">
+        <i class="fas fa-exclamation-circle"></i> Code must contain digits only.
+      </div>
+      <div class="val-msg success" id="codeSuccess">
+        <i class="fas fa-check-circle"></i> Code complete — ready to verify.
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="btn-verify">
+        <i class="fas fa-shield-alt" style="font-size:0.72rem;"></i> Verify Code
+      </button>
+
+      <div class="or-divider"><span class="or-text">or</span></div>
+
+      <!-- Clear -->
+      <button type="button" class="btn-clear" id="clearBtn">
+        <i class="fas fa-times" style="font-size:0.72rem;"></i> Clear
+      </button>
+
+      <!-- Resend -->
+      <div class="resend-section">
+        <button type="button" class="btn-resend" id="resendBtn">
+          Resend Code
+        </button>
+        <p class="timer-text" id="timerText"></p>
+      </div>
+
+    </form>
+
+    <a href="http://127.0.0.1:5500/enteremail.html" class="auth-back">
+      <i class="fas fa-arrow-left"></i> Back to email entry
+    </a>
+
+    <p class="auth-note">
+      <i class="fas fa-lock"></i> This code expires in 10 minutes for your security.
+    </p>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    var boxes      = document.querySelectorAll('.otp-box');
+    var codeInput  = document.getElementById('codeInput');
+    var codeError  = document.getElementById('codeError');
+    var digitsErr  = document.getElementById('digitsError');
+    var codeSuccess= document.getElementById('codeSuccess');
+
+    /* ── OTP box behaviour ── */
+    boxes.forEach(function (box, idx) {
+      box.addEventListener('keydown', function (e) {
+        /* allow only digits, backspace, delete, arrows, tab */
+        if (!/^\d$/.test(e.key) && !['Backspace','Delete','ArrowLeft','ArrowRight','Tab'].includes(e.key)) {
+          e.preventDefault();
+        }
+        if (e.key === 'Backspace' && box.value === '' && idx > 0) {
+          boxes[idx - 1].focus();
+        }
+      });
+
+      box.addEventListener('input', function () {
+        /* keep only last digit */
+        box.value = box.value.replace(/\D/g, '').slice(-1);
+        box.classList.toggle('filled', box.value !== '');
+        syncHidden();
+        if (box.value && idx < 5) boxes[idx + 1].focus();
+        updateValidation();
+      });
+
+      box.addEventListener('paste', function (e) {
+        e.preventDefault();
+        var pasted = (e.clipboardData || window.clipboardData).getData('text').replace(/\D/g, '').slice(0, 6);
+        pasted.split('').forEach(function (ch, i) {
+          if (boxes[i]) { boxes[i].value = ch; boxes[i].classList.add('filled'); }
+        });
+        syncHidden();
+        if (pasted.length < 6) boxes[pasted.length].focus();
+        else boxes[5].focus();
+        updateValidation();
+      });
+
+      box.addEventListener('focus', function () {
+        box.select();
+      });
+    });
+
+    function syncHidden() {
+      codeInput.value = Array.from(boxes).map(function (b) { return b.value; }).join('');
+    }
+
+    function updateValidation() {
+      var val = codeInput.value;
+      hideAll();
+      if (val.length === 6) {
+        boxes.forEach(function (b) { b.classList.remove('error-box'); b.classList.add('success-box'); });
+        codeSuccess.classList.add('show');
+      } else {
+        boxes.forEach(function (b) { b.classList.remove('success-box'); });
+      }
+    }
+
+    function hideAll() {
+      [codeError, digitsErr, codeSuccess].forEach(function (el) { el.classList.remove('show'); });
+    }
+
+    /* ── clear button ── */
+    document.getElementById('clearBtn').addEventListener('click', function () {
+      boxes.forEach(function (b) {
+        b.value = '';
+        b.classList.remove('filled', 'error-box', 'success-box');
+      });
+      codeInput.value = '';
+      hideAll();
+      boxes[0].focus();
+    });
+
+    /* ── form submit validation ── */
+    document.getElementById('verificationForm').addEventListener('submit', function (e) {
+      var val = codeInput.value;
+      hideAll();
+      if (val.length < 6) {
+        e.preventDefault();
+        boxes.forEach(function (b) { if (!b.value) b.classList.add('error-box'); });
+        codeError.classList.add('show');
+        return;
+      }
+      if (!/^\d{6}$/.test(val)) {
+        e.preventDefault();
+        digitsErr.classList.add('show');
+        return;
+      }
+      /* passes — vcode.js takes over */
+    });
+
+    /* ── resend + countdown timer ── */
+    var resendBtn  = document.getElementById('resendBtn');
+    var timerText  = document.getElementById('timerText');
+    var countdown  = null;
+
+    function startTimer(seconds) {
+      resendBtn.disabled = true;
+      var remaining = seconds;
+      timerText.innerHTML = 'Resend available in <span>' + remaining + 's</span>';
+      countdown = setInterval(function () {
+        remaining--;
+        if (remaining <= 0) {
+          clearInterval(countdown);
+          resendBtn.disabled = false;
+          timerText.innerHTML = '';
+        } else {
+          timerText.innerHTML = 'Resend available in <span>' + remaining + 's</span>';
+        }
+      }, 1000);
+    }
+
+    /* start a 60s timer on page load */
+    startTimer(60);
+
+    resendBtn.addEventListener('click', function () {
+      if (resendBtn.disabled) return;
+      /* clear boxes */
+      boxes.forEach(function (b) {
+        b.value = ''; b.classList.remove('filled','error-box','success-box');
+      });
+      codeInput.value = '';
+      hideAll();
+      boxes[0].focus();
+      startTimer(60);
+    });
+  </script>
+  <script src="/js/vcode.js"></script>
+</body>
 </html>
