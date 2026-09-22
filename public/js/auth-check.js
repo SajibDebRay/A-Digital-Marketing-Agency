@@ -133,20 +133,24 @@
       if (notice) notice.style.display = 'block';
 
       // ── PRICING PAGE: intercept all Order Now buttons ──
-            // ── PRICING PAGE: intercept all Order Now buttons ──
       const isOnPricingPage = window.location.pathname.includes('pricing');
       if (isOnPricingPage) {
-       
-
-        // Run now and also after DOM is fully ready
-        attachOrderListeners();
-        document.addEventListener('DOMContentLoaded', attachOrderListeners);
+        if (typeof attachOrderListeners === 'function') {
+          attachOrderListeners();
+          document.addEventListener('DOMContentLoaded', attachOrderListeners);
+        } else {
+          console.warn('attachOrderListeners is not defined — Order Now buttons on this page will not be gated by login state.');
+        }
       }
     }
 
   } catch (err) {
+    // Even on failure, keep BOTH options visible instead of dropping to Login-only
     const menu = document.getElementById('user-dropdown-menu');
-    if (menu) menu.innerHTML = `<a class="dropdown-item" href="/auth/login">Log In</a>`;
+    if (menu) menu.innerHTML = `
+      <a class="dropdown-item" href="/auth/login">Log In</a>
+      <a class="dropdown-item" href="/auth/signup" style="color:var(--gold-light) !important;">Sign Up</a>
+    `;
     console.warn('Auth check failed:', err);
   }
 })();
