@@ -1,62 +1,96 @@
 /* =============================================
    Cr@ckFlow Pricing Page — pricing.js
+   Maps H3 text → canonical service names
+   then checks login before redirecting
    ============================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    const orderButtons = document.querySelectorAll(".order-btn");
+  // ── Maps the long SEO H3 text → canonical service name
+  // that service-options.js and payment.js understand
+  const SERVICE_NAME_MAP = {
+    'email marketing package'                             : 'Email Marketing',
+    'b2b data services & lead generation'                 : 'Data Scraping',
+    'b2b data services and lead generation'               : 'Data Scraping',
+    'seo package — seo services pricing'                  : 'SEO Services',
+    'seo package – seo services pricing'                  : 'SEO Services',
+    'virtual assistant & administrative support services' : 'Administrative Support',
+    'virtual assistant and administrative support services': 'Administrative Support',
+    'b2b data services — ready database'                  : 'Database',
+    'b2b data services – ready database'                  : 'Database',
+    'social media marketing package'                      : 'SMM Services',
+  };
 
-    console.log("Order buttons found:", orderButtons.length);
+  const BASE_PRICES = {
+    'Email Marketing'      : 5.99,
+    'Data Scraping'        : 149.99,
+    'SEO Services'         : 249.99,
+    'Administrative Support': 49.99,
+    'Database'             : 49.99,
+    'SMM Services'         : 49.99,
+  };
 
-    orderButtons.forEach((btn) => {
+  const orderButtons = document.querySelectorAll(".order-btn");
+  console.log("Order buttons found:", orderButtons.length);
 
-        btn.addEventListener("click", (e) => {
+  orderButtons.forEach((btn) => {
+    btn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
 
-            e.preventDefault();
-            e.stopPropagation();
+      console.log("Order Now clicked");
 
-            console.log("Order Now clicked");
+      // ── Auth check first ──
+      try {
+        const res  = await fetch('/auth/status');
+        const data = await res.json();
 
-            const card = btn.closest(".pricing-card");
+        if (!data.loggedIn) {
+          const paywall = document.getElementById('paywall-notice');
+          if (paywall) {
+            paywall.style.display = 'block';
+            paywall.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+          return;
+        }
+      } catch (err) {
+        console.warn('Auth check failed:', err);
+        return;
+      }
 
-            if (!card) {
-                console.error("Pricing card not found.");
-                return;
-            }
+      // ── Get card info ──
+      const card = btn.closest(".pricing-card");
+      if (!card) { console.error("Pricing card not found."); return; }
 
-            const serviceElement = card.querySelector("h3");
-            const amountElement = card.querySelector(".price-amount");
-            const centsElement = card.querySelector(".price-cents");
+      const h3El     = card.querySelector("h3");
+      const amountEl = card.querySelector(".price-amount");
+      const centsEl  = card.querySelector(".price-cents");
 
-            if (!serviceElement || !amountElement || !centsElement) {
-                console.error("Service or price information is missing.");
-                return;
-            }
+      if (!h3El || !amountEl || !centsEl) {
+        console.error("Service or price element missing.");
+        return;
+      }
 
-            const service = serviceElement.innerText.trim();
+      // ── Map long H3 text → canonical service name ──
+      const h3Raw      = h3El.innerText.trim().toLowerCase()
+                          .replace(/\s+/g, ' ')   // collapse whitespace
+                          .replace(/&/g, 'and');   // normalise ampersands
+      const service    = SERVICE_NAME_MAP[h3Raw] || h3El.innerText.trim();
+      const basePrice  = BASE_PRICES[service];
 
-            const amount = amountElement.innerText
-                .replace(/[^0-9.]/g, "")
-                .trim();
+      const amount = amountEl.innerText.replace(/[^0-9.]/g, "").trim();
+      const cents  = centsEl.innerText.replace(/[^0-9]/g, "").padStart(2, "0");
+      const price  = basePrice ? basePrice.toFixed(2) : `${amount}.${cents}`;
 
-            const cents = centsElement.innerText
-                .replace(/[^0-9]/g, "")
-                .padStart(2, "0");
+      console.log("Canonical service:", service, "| Price:", price);
 
-            const price = `${amount}.${cents}`;
+      // ── Save & redirect ──
+      localStorage.setItem("selectedService", service);
+      localStorage.setItem("selectedPrice",   price);
 
-            console.log("Selected service:", service);
-            console.log("Selected price:", price);
-
-            // Save order information
-            localStorage.setItem("selectedService", service);
-            localStorage.setItem("selectedPrice", price);
-
-            // Redirect
-            window.location.href =
-                `payment.html?service=${encodeURIComponent(service)}&price=${encodeURIComponent(price)}`;
-        });
-
+      window.location.href =
+        `payment.html?service=${encodeURIComponent(service)}&price=${encodeURIComponent(price)}`;
     });
+  });
 
 });

@@ -3,7 +3,7 @@ const router = express.Router();
 const path = require('path');          // only once!
 const User = require('../models/User');
 const generateCode = require('../utils/generatecode');
-const sendVerificationEmail = require('../utils/sendMailer');
+const { sendVerificationEmail } = require('../utils/sendMailer');
 
 // Serve signup form (GET)
 router.get('/signup', (req, res) => {

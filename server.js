@@ -43,7 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 console.log('✅ Basic middleware registered.');
 
-// Session - note we create store even if MONGO_URI empty (falls back to local)
+// Session
 const MONGO_URI = process.env.MONGO_URI || '';
 const SESSION_SECRET = process.env.SESSION_SECRET || 'dev-secret';
 
@@ -51,30 +51,34 @@ if (!MONGO_URI) {
   console.warn('⚠️ Warning: MONGO_URI is empty. If you intended to use Atlas, set MONGO_URI in .env.');
 }
 
-// register session middleware (store will attempt to connect)
 try {
-  app.use(session({
+ app.use(session({
     secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
       mongoUrl: MONGO_URI || 'mongodb://127.0.0.1:27017/a-digital-marketing-agency',
       collectionName: 'sessions',
-      ttl: 60 * 60 * 24 // 1 day
+      ttl: 86400
     }),
-    cookie: { maxAge: 1000 * 60 * 60 * 24 }
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24,
+      secure: process.env.NODE_ENV === 'production', // HTTPS only in prod
+      httpOnly: true,   // can't be read by JS
+      sameSite: 'lax'
+    }
   }));
   console.log('✅ Session middleware registered.');
 } catch (e) {
   console.error('❌ Session setup error:', e && e.stack ? e.stack : e);
 }
 
-// Simple root route for quick check
+// Simple root route
 app.get('/', (req, res) => {
   res.type('text').send('Server is up — visit /auth/login or /auth/signup if configured.');
 });
 
-// Attempt to mount auth routes if available
+// ── AUTH ROUTES ──
 const routesPath = path.join(__dirname, 'routes', 'auth.js');
 if (fs.existsSync(routesPath)) {
   try {
@@ -88,18 +92,26 @@ if (fs.existsSync(routesPath)) {
   console.warn('⚠️ routes/auth.js not found; skipping mounting auth routes.');
 }
 
+// ── ORDER ROUTES ──
+const ordersRoutePath = path.join(__dirname, 'routes', 'orders.js');
+if (fs.existsSync(ordersRoutePath)) {
+  try {
+    const orderRoutes = require('./routes/orders');
+    app.use('/orders', orderRoutes);
+    console.log('✅ order routes mounted at /orders.');
+  } catch (e) {
+    console.error('❌ Error mounting order routes:', e && e.stack ? e.stack : e);
+  }
+} else {
+  console.warn('⚠️ routes/orders.js not found; skipping mounting order routes.');
+}
+
 const PORT = process.env.PORT || 5500;
 console.log('PORT to use:', PORT);
 
 console.log('🔁 About to try mongoose.connect()...');
 
 mongoose.connect(MONGO_URI || 'mongodb://127.0.0.1:27017/a-digital-marketing-agency', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  // Atlas/TLS helpers — safe for local dev when needed
-  ssl: true,
-  tlsAllowInvalidCertificates: true,
-  // avoid very long hanging
   connectTimeoutMS: 10000,
   serverSelectionTimeoutMS: 10000
 })
@@ -109,6 +121,5 @@ mongoose.connect(MONGO_URI || 'mongodb://127.0.0.1:27017/a-digital-marketing-age
 })
 .catch((err) => {
   console.error('❌ MongoDB connection error:', err && err.stack ? err.stack : err);
-  // still start server so you can inspect / and debug
   app.listen(PORT, () => console.log(`⚠️ Server started without DB on http://localhost:${PORT}`));
 });
