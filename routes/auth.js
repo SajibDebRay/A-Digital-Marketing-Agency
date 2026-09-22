@@ -23,7 +23,7 @@ router.post('/signup', async (req, res) => {
     const existing = await User.findOne({ email });
 
     if (existing) {
-      return res.status(400).send('User already exists');
+      return res.status(400).json({ success: false, message: 'User already exists' });
     }
 
     const user = new User({
@@ -46,20 +46,24 @@ router.post('/signup', async (req, res) => {
     // Send code to user's email
     await sendVerificationEmail(email, code);
 
-    // Make sure session is saved before redirect
+    // Make sure session is saved before responding
     req.session.save((err) => {
       if (err) {
         console.error(err);
-        return res.status(500).send('Session error');
+        return res.status(500).json({ success: false, message: 'Session error' });
       }
 
-      // Redirect to verification page
-      res.redirect('/vcode.html');
+      // Tell the frontend where to go next instead of redirecting from the server
+      res.json({
+        success: true,
+        message: 'Account created! Check your email for a verification code.',
+        redirect: '/vcode.html'
+      });
     });
 
   } catch (err) {
     console.error(err);
-    res.status(500).send(err.message);
+    res.status(500).json({ success: false, message: err.message });
   }
 });
 
@@ -68,16 +72,25 @@ router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).send('Invalid credentials');
+    if (!user) return res.status(400).json({ success: false, message: 'Invalid credentials' });
 
     const isMatch = await user.comparePassword(password);
-    if (!isMatch) return res.status(400).send('Invalid credentials');
+    if (!isMatch) return res.status(400).json({ success: false, message: 'Invalid credentials' });
 
     req.session.userId = user._id;
-    res.redirect('/home.html');
+
+    // Make sure the session is actually saved before telling the frontend it's OK to move on
+    req.session.save((err) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ success: false, message: 'Session error' });
+      }
+
+      res.json({ success: true, message: 'Welcome back!', redirect: '/home.html' });
+    });
   } catch (err) {
     console.error(err);
-    res.status(500).send(err.message);
+    res.status(500).json({ success: false, message: err.message });
   }
 });
 

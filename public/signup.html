@@ -259,6 +259,39 @@
         el.classList.remove('show');
       });
     });
+
+    /* ── submit via fetch so we can actually show a success/error alert ── */
+    document.getElementById('signupForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      if (pwInput.value !== confirmInput.value) {
+        alert('Passwords do not match.');
+        return;
+      }
+
+      try {
+        const response = await fetch('/auth/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username: usernameInput.value,
+            email: emailInput.value,
+            password: pwInput.value
+          })
+        });
+        const result = await response.json();
+
+        if (result.success) {
+          alert(result.message || 'Account created!');
+          window.location.href = result.redirect || '/vcode.html';
+        } else {
+          alert(result.message || 'Something went wrong. Please try again.');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Network error — please try again.');
+      }
+    });
   </script>
 </body>
 </html>

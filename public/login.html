@@ -343,7 +343,7 @@
 
   <div class="auth-card">
 
-    <img src="./Cr@ckflow Logo.png" alt="Cr@ckFlow logo" class="auth-logo">
+    <img src="/Cr@ckflow Logo.png" alt="Cr@ckFlow logo" class="auth-logo">
 
     <div class="auth-icon">
       <i class="fas fa-user"></i>
@@ -352,13 +352,13 @@
     <div class="auth-eyebrow">Welcome Back</div>
     <h1 class="auth-title">Log In</h1>
     <p class="auth-subtitle">Don't have an account?</p>
-    <a href="/signup.html" class="auth-signup-link">
+    <a href="/auth/signup" class="auth-signup-link">
       Sign up here →
     </a>
 
     <hr class="auth-divider">
 
-    <form method="POST" action="/auth/login">
+    <form method="POST" action="/auth/login" id="loginForm">
 
       <!-- Email -->
       <label class="field-label" for="email">Email Address</label>
@@ -431,6 +431,33 @@
       } else {
         input.type = 'password';
         icon.classList.replace('fa-eye-slash', 'fa-eye');
+      }
+    });
+
+    // submit via fetch so we can actually show a success/error alert
+    document.getElementById('loginForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      var email = document.getElementById('email').value;
+      var password = document.getElementById('password').value;
+
+      try {
+        const response = await fetch('/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email, password: password })
+        });
+        const result = await response.json();
+
+        if (result.success) {
+          alert(result.message || 'Welcome back!');
+          window.location.href = result.redirect || '/home.html';
+        } else {
+          alert(result.message || 'Invalid credentials.');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Network error — please try again.');
       }
     });
   </script>
