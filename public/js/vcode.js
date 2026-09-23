@@ -5,34 +5,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-
     console.log("Form submitted");
 
     const input = document.getElementById('codeInput');
-
     if (!input) {
-      console.error("❌ Input not found");
+      console.error("Input not found");
       alert("Input field missing");
       return;
     }
 
     const code = input.value.trim();
-    console.log("Code entered:", code);
+    // ✅ FIX 1: also retrieve email — backend now looks up by email+code, not session
+    const email = localStorage.getItem('pendingEmail');
+    console.log("Code entered:", code, "| Email:", email);
+
+    if (!email) {
+      alert("Session expired. Please sign up again.");
+      window.location.href = '/signup.html';
+      return;
+    }
 
     try {
       const res = await fetch('/auth/verify-code', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({ code })
+        body: JSON.stringify({ code, email }) // ✅ FIX 1: send email alongside code
       });
 
       const data = await res.json();
       console.log("Server response:", data);
 
       if (res.ok && data.success) {
-  window.location.href = data.redirect;
-} else {
+        localStorage.removeItem('pendingEmail'); // ✅ clean up after success
+        window.location.href = data.redirect;
+      } else {
         alert(data.message || 'Invalid or expired code');
       }
 
@@ -43,9 +50,8 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ============================
-  // 🔥 RESEND CODE FINAL FIX
+  // RESEND CODE
   // ============================
-
   const resendBtn = document.getElementById('resendBtn');
   const timerText = document.getElementById('timerText');
 
@@ -57,25 +63,25 @@ document.addEventListener("DOMContentLoaded", () => {
   resendBtn.addEventListener('click', async () => {
     resendBtn.disabled = true;
 
+    // ✅ FIX 2: was 'resetEmail' — correct key is 'pendingEmail' for signup flow
+    const email = localStorage.getItem('pendingEmail');
+
+    if (!email) {
+      alert("Session expired. Please sign up again.");
+      window.location.href = '/signup.html';
+      return;
+    }
+
     try {
-      // 🔥 GET EMAIL FROM STORAGE
-      const email = localStorage.getItem('resetEmail');
-
-      if (!email) {
-        alert("Session expired. Please enter email again.");
-        window.location.href = '/enteremail.html';
-        return;
-      }
-
       const res = await fetch('/auth/send-code', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({ email }) // 🔥 KEY FIX
+        body: JSON.stringify({ email })
       });
 
       if (res.ok) {
-        console.log("✅ Code resent");
+        console.log("Code resent");
         startCooldown();
       } else {
         const text = await res.text();
@@ -98,7 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
     timer = setInterval(() => {
       cooldown--;
       timerText.textContent = `Resend available in ${cooldown}s`;
-
       if (cooldown <= 0) {
         clearInterval(timer);
         resendBtn.disabled = false;
