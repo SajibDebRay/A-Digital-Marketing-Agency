@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const path = require('path');          // only once!
+const path = require('path');
 const User = require('../models/User');
 const generateCode = require('../utils/generatecode');
 const { sendVerificationEmail } = require('../utils/sendMailer');
@@ -26,34 +26,25 @@ router.post('/signup', async (req, res) => {
       return res.status(400).json({ success: false, message: 'User already exists' });
     }
 
-    const user = new User({
-      username,
-      email,
-      password
-    });
-
+    const user = new User({ username, email, password });
     await user.save();
 
-    // 🔥 Generate verification code
+    // Generate verification code and save to DB (not session)
     const code = generateCode();
-
-    // Save verification info in session
-    req.session.userId = user._id;
-    req.session.verificationCode = String(code).trim();
-    req.session.verificationEmail = email;
-    req.session.codeExpiresAt = Date.now() + 10 * 60 * 1000;
+    user.verificationCode  = String(code).trim();
+    user.codeExpiresAt     = new Date(Date.now() + 10 * 60 * 1000);
+    await user.save();
 
     // Send code to user's email
     await sendVerificationEmail(email, code);
 
-    // Make sure session is saved before responding
+    // Save email to session as fallback, but main flow uses DB
+    req.session.userId = user._id;
     req.session.save((err) => {
       if (err) {
         console.error(err);
         return res.status(500).json({ success: false, message: 'Session error' });
       }
-
-      // Tell the frontend where to go next instead of redirecting from the server
       res.json({
         success: true,
         message: 'Account created! Check your email for a verification code.',
@@ -78,14 +69,11 @@ router.post('/login', async (req, res) => {
     if (!isMatch) return res.status(400).json({ success: false, message: 'Invalid credentials' });
 
     req.session.userId = user._id;
-
-    // Make sure the session is actually saved before telling the frontend it's OK to move on
     req.session.save((err) => {
       if (err) {
         console.error(err);
         return res.status(500).json({ success: false, message: 'Session error' });
       }
-
       res.json({ success: true, message: 'Welcome back!', redirect: '/home.html' });
     });
   } catch (err) {
@@ -97,128 +85,111 @@ router.post('/login', async (req, res) => {
 // Logout
 router.get('/logout', (req, res) => {
   req.session.destroy(() => {
-    res.redirect('/login.html');
+    res.redirect('/auth/login');
   });
 });
 
 // ── GET /auth/me ──────────────────────────────────────────────────────────────
-// Returns the logged-in user's email and username as JSON.
-// Used by accountdetais.js to populate the Account Details page.
 router.get('/me', async (req, res) => {
   if (!req.session.userId) {
     return res.status(401).json({ message: 'Not authenticated' });
   }
-
   try {
     const user = await User.findById(req.session.userId).select('username email');
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
+    if (!user) return res.status(404).json({ message: 'User not found' });
     return res.json({ username: user.username, email: user.email });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: 'Server error' });
   }
 });
-// ─────────────────────────────────────────────────────────────────────────────
 
-// SEND VERIFICATION CODE
+// ── SEND VERIFICATION CODE ────────────────────────────────────────────────────
+// Used for both signup resend and password reset flow
 router.post('/send-code', async (req, res) => {
-  const email = req.body.email || req.session.verificationEmail;
+  const email = req.body.email;
 
   if (!email) {
-    return res.status(400).send('Please enter your email.');
+    return res.status(400).json({ success: false, message: 'Please enter your email.' });
   }
 
   try {
-    // 🔥 Check if user exists
     const user = await User.findOne({ email });
-
     if (!user) {
-      return res.status(400).send('No account found with this email. Please sign up first.');
+      return res.status(400).json({ success: false, message: 'No account found with this email. Please sign up first.' });
     }
 
     const code = generateCode();
-
-    req.session.verificationCode = String(code).trim();
-    req.session.verificationEmail = email;
-    req.session.codeExpiresAt = Date.now() + 10 * 60 * 1000;
-
-    console.log('Generated Code:', req.session.verificationCode);
+    user.verificationCode = String(code).trim();
+    user.codeExpiresAt    = new Date(Date.now() + 10 * 60 * 1000);
+    await user.save();
 
     await sendVerificationEmail(email, code);
+    return res.json({ success: true, message: 'Verification code sent' });
 
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ success: false, message: 'Failed to send verification code' });
+  }
+});
+
+// ── VERIFY CODE ───────────────────────────────────────────────────────────────
+// Uses email + DB — no session dependency, works reliably on Railway
+router.post('/verify-code', async (req, res) => {
+  const { code, email } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ success: false, message: 'Email is required.' });
+  }
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user || !user.verificationCode) {
+      return res.status(400).json({ success: false, message: 'No code found. Please request again.' });
+    }
+
+    if (Date.now() > new Date(user.codeExpiresAt).getTime()) {
+      return res.status(400).json({ success: false, message: 'Code expired.' });
+    }
+
+    if (String(code).trim() !== String(user.verificationCode).trim()) {
+      return res.status(400).json({ success: false, message: 'Invalid code.' });
+    }
+
+    // Clear code from DB
+    user.verificationCode = null;
+    user.codeExpiresAt    = null;
+    await user.save();
+
+    // Set session and redirect
+    req.session.userId = user._id;
     req.session.save((err) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).send('Session error');
-      }
+      if (err) return res.status(500).json({ success: false, message: 'Session error.' });
 
-      return res.send('Verification code sent');
+      // If user came from signup → home, if from password reset → passwordreset
+      const redirect = req.body.flow === 'reset' ? '/passwordreset.html' : '/home.html';
+      return res.json({ success: true, redirect });
     });
 
   } catch (err) {
     console.error(err);
-    return res.status(500).send('Failed to send verification code');
+    return res.status(500).json({ success: false, message: 'Server error.' });
   }
 });
 
-// VERIFY CODE
-router.post('/verify-code', (req, res) => {
-  const { code } = req.body;
-
-  if (!req.session.verificationCode) {
-    return res.status(400).json({
-      success: false,
-      message: 'No code found. Please request again.'
-    });
-  }
-
-  if (Date.now() > req.session.codeExpiresAt) {
-    return res.status(400).json({
-      success: false,
-      message: 'Code expired'
-    });
-  }
-
-  if (String(code).trim() !== String(req.session.verificationCode).trim()) {
-    return res.status(400).json({
-      success: false,
-      message: 'Invalid code'
-    });
-  }
-
-  // ✅ keep email but clear only verification code + expiry
-  req.session.verificationCode = null;
-  req.session.codeExpiresAt = null;
-
-  // 🔥 Different redirect depending on why verification was requested
-  if (req.session.userId) {
-    return res.json({
-      success: true,
-      redirect: '/home.html'
-    });
-  }
-
-  return res.json({
-    success: true,
-    redirect: '/passwordreset.html'
-  });
-});
-
-// RESET PASSWORD
+// ── RESET PASSWORD ────────────────────────────────────────────────────────────
 router.post('/reset-password', async (req, res) => {
-  const { password } = req.body;
+  const { password, email } = req.body;
 
   try {
-    const email = req.session.verificationEmail;
+    const resolvedEmail = email || req.session.verificationEmail;
 
-    if (!email) {
+    if (!resolvedEmail) {
       return res.status(400).json({ success: false, message: 'Session expired' });
     }
 
-    const user = await User.findOne({ email });
-
+    const user = await User.findOne({ email: resolvedEmail });
     if (!user) {
       return res.status(400).json({ success: false, message: 'User not found' });
     }
@@ -226,9 +197,7 @@ router.post('/reset-password', async (req, res) => {
     user.password = password;
     await user.save();
 
-    // ✅ OPTIONAL BUT IMPORTANT: log user in after reset
     req.session.userId = user._id;
-
     req.session.verificationEmail = null;
 
     return res.json({ success: true });
@@ -238,24 +207,20 @@ router.post('/reset-password', async (req, res) => {
     return res.status(500).json({ success: false, message: 'Error updating password' });
   }
 });
+
 // ── GET /auth/status ──────────────────────────────────────────────────────────
-// Called by auth-check.js on every page to check login state
 router.get('/status', async (req, res) => {
   if (!req.session.userId) {
     return res.json({ loggedIn: false });
   }
-
   try {
     const user = await User.findById(req.session.userId).select('username email');
-    if (!user) {
-      return res.json({ loggedIn: false });
-    }
+    if (!user) return res.json({ loggedIn: false });
     return res.json({ loggedIn: true, user: { name: user.username, email: user.email } });
   } catch (err) {
     console.error(err);
     return res.json({ loggedIn: false });
   }
 });
-// ─────────────────────────────────────────────────────────────────────────────
 
 module.exports = router;

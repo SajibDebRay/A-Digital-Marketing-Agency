@@ -5,6 +5,8 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  verificationCode:    { type: String, default: null },
+codeExpiresAt:       { type: Date,   default: null },
 });
 
 // Hash password before saving
@@ -17,6 +19,7 @@ userSchema.pre('save', async function(next) {
 // Compare password method
 userSchema.methods.comparePassword = async function(candidatePwd) {
   return await bcrypt.compare(candidatePwd, this.password);
+  
 };
 
 module.exports = mongoose.model('User', userSchema);
