@@ -36,6 +36,7 @@ router.post('/signup', async (req, res) => {
 
     // 🔥 Generate verification code
     const code = generateCode();
+    console.log(`📩 [TESTING] Verification code for ${email}:`, code);
 
     // Save verification info in session
     req.session.userId = user._id;
@@ -43,8 +44,12 @@ router.post('/signup', async (req, res) => {
     req.session.verificationEmail = email;
     req.session.codeExpiresAt = Date.now() + 10 * 60 * 1000;
 
-    // Send code to user's email
-    await sendVerificationEmail(email, code);
+    // Send code to user's email — don't block the response on this. If Gmail's
+    // SMTP is slow or misconfigured, the account/session should still succeed;
+    // email delivery failure is logged but no longer freezes the signup request.
+    sendVerificationEmail(email, code).catch((err) => {
+      console.error('⚠️ Failed to send verification email:', err);
+    });
 
     // Make sure session is saved before responding
     req.session.save((err) => {
@@ -141,14 +146,15 @@ router.post('/send-code', async (req, res) => {
     }
 
     const code = generateCode();
+    console.log(`📩 [TESTING] Resent verification code for ${email}:`, code);
 
     req.session.verificationCode = String(code).trim();
     req.session.verificationEmail = email;
     req.session.codeExpiresAt = Date.now() + 10 * 60 * 1000;
 
-    console.log('Generated Code:', req.session.verificationCode);
-
-    await sendVerificationEmail(email, code);
+    sendVerificationEmail(email, code).catch((err) => {
+      console.error('⚠️ Failed to resend verification email:', err);
+    });
 
     req.session.save((err) => {
       if (err) {
