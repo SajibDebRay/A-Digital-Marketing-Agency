@@ -283,6 +283,7 @@
 
         if (result.success) {
           alert(result.message || 'Account created!');
+          localStorage.setItem('resetEmail', emailInput.value); // save before redirect
           window.location.href = result.redirect || '/vcode.html';
         } else {
           alert(result.message || 'Something went wrong. Please try again.');
