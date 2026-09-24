@@ -269,6 +269,9 @@
         return;
       }
 
+      const submitBtn = this.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+
       try {
         const response = await fetch('/auth/signup', {
           method: 'POST',
@@ -287,10 +290,12 @@
           window.location.href = result.redirect || '/vcode.html';
         } else {
           alert(result.message || 'Something went wrong. Please try again.');
+          submitBtn.disabled = false;
         }
       } catch (err) {
         console.error(err);
         alert('Network error — please try again.');
+        submitBtn.disabled = false;
       }
     });
   </script>
