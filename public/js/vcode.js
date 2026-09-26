@@ -15,8 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const code = input.value.trim();
-    // ✅ FIX 1: also retrieve email — backend now looks up by email+code, not session
-    const email = localStorage.getItem('pendingEmail');
+    // Uses the same key that signup.html actually saves ('resetEmail')
+    const email = localStorage.getItem('resetEmail');
     console.log("Code entered:", code, "| Email:", email);
 
     if (!email) {
@@ -30,14 +30,14 @@ document.addEventListener("DOMContentLoaded", () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({ code, email }) // ✅ FIX 1: send email alongside code
+        body: JSON.stringify({ code, email })
       });
 
       const data = await res.json();
       console.log("Server response:", data);
 
       if (res.ok && data.success) {
-        localStorage.removeItem('pendingEmail'); // ✅ clean up after success
+        localStorage.removeItem('resetEmail'); // clean up after success
         window.location.href = data.redirect;
       } else {
         alert(data.message || 'Invalid or expired code');
@@ -63,8 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
   resendBtn.addEventListener('click', async () => {
     resendBtn.disabled = true;
 
-    // ✅ FIX 2: was 'resetEmail' — correct key is 'pendingEmail' for signup flow
-    const email = localStorage.getItem('pendingEmail');
+    const email = localStorage.getItem('resetEmail');
 
     if (!email) {
       alert("Session expired. Please sign up again.");
