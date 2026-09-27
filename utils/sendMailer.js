@@ -9,7 +9,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // Base URL used to build the action-button links inside admin emails.
-// IMPORTANT: set BASE_URL in your .env once this is live (e.g. https:// crackflow.up.railway.app).
+// IMPORTANT: set BASE_URL in your .env once this is live (e.g. https://crackflow.up.railway.app).
 // If it's left as localhost, the buttons will only work from the same machine as the server.
 const BASE_URL = process.env.BASE_URL || 'http://localhost:5500';
 
