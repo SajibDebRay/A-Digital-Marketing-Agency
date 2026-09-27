@@ -1,0 +1,17 @@
+# Cr@ckFlow
+
+> Cr@ckFlow is an affordable digital marketing agency for small business owners and startups, offering lead generation, email marketing, social media management, paid advertising, and B2B/B2C data services.
+
+Founded in 2025 by Sajib Deb Ray and based in Sylhet, Bangladesh, Cr@ckFlow serves clients across the USA, UK, Canada, Australia, and Bangladesh. The agency is positioned as a budget-friendly alternative to larger marketing firms, pairing clients directly with a dedicated marketing consultant rather than a junior account manager. Core services include lead generation, email marketing campaigns, social media management (Facebook, Instagram, LinkedIn), Facebook/Google paid advertising, ecommerce marketing, and B2B/B2C contact data.
+
+## Services
+
+- [Pricing](https://crackflow.up.railway.app/pricing.html): Full list of services and packages, including lead generation, email marketing, social media management, Facebook ads, paid search, and ecommerce marketing.
+- [Portfolio](https://crackflow.up.railway.app/portfolio.html): Past client work and case studies.
+- [About Us](https://crackflow.up.railway.app/aboutus.html): Company background, founding story, and mission.
+- [Blog](https://crackflow.up.railway.app/blog.html): Articles on digital marketing strategy for small businesses and startups.
+- [Contact](https://crackflow.up.railway.app/contact.html): Contact details and free consultation requests.
+
+## Optional
+
+- [Home](https://crackflow.up.railway.app/): Landing page with a full service overview, trust signals, and frequently asked questions.
