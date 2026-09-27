@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Account-specific / private pages — nothing useful for search here
+Disallow: /accountdetais.html
+Disallow: /refer.html
+
+# Auth flow — login, signup, and verification steps, not content
+Disallow: /auth/
+Disallow: /vcode.html
+Disallow: /enteremail.html
+Disallow: /passwordreset.html
+
+Sitemap: https://crackflow.up.railway.app/sitemap.xml

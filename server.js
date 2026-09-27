@@ -6,6 +6,7 @@
 // FIX 3 → Removed dangerous localhost MongoDB fallback
 // FIX 4 → Server no longer starts if MongoDB fails (sessions would be broken)
 // FIX 5 → Added session debug middleware to diagnose future issues
+// FIX 6 → '/' now serves the real homepage instead of a JSON health-check
 // ============================================================
 
 try {
@@ -99,8 +100,16 @@ app.use((req, res, next) => {
 });
 
 // ─── ROUTES ───────────────────────────────────────────────────────────────────
-// Root health-check
+// FIX 6 — Root now serves the actual homepage instead of a JSON blob.
+// Previously '/' returned a health-check JSON response, which meant your real
+// site was only reachable at /home.html — search engines and visitors hitting
+// the bare domain got a technical response instead of your marketing page.
 app.get('/', (req, res) => {
+  res.sendFile('home.html', { root: path.join(__dirname, 'public') });
+});
+
+// Health check — moved off '/' so it no longer blocks the real homepage.
+app.get('/health', (req, res) => {
   res.json({
     status:  'ok',
     db:      mongoose.connection.readyState === 1 ? 'connected' : 'disconnected',
