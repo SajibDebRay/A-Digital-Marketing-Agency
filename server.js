@@ -7,6 +7,8 @@
 // FIX 4 → Server no longer starts if MongoDB fails (sessions would be broken)
 // FIX 5 → Added session debug middleware to diagnose future issues
 // FIX 6 → '/' now serves the real homepage instead of a JSON health-check
+// FIX 7 → /home.html now 301-redirects to '/' (one canonical homepage URL for SEO)
+// FIX 8 → Session debug log is development-only (session IDs must not be in production logs)
 // ============================================================
 
 try {
@@ -60,6 +62,12 @@ process.on('unhandledRejection',  err => console.error('💥 Unhandled Promise R
 // are built-in since Express 4.16 and do exactly the same thing.
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// FIX 7 — Permanently redirect /home.html → /
+// MUST stay above express.static, otherwise static serves public/home.html first
+// and Google would see two versions of the homepage (/ and /home.html).
+app.get('/home.html', (req, res) => res.redirect(301, '/'));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 console.log('✅ Core middleware registered.');
@@ -90,14 +98,16 @@ console.log('✅ Session middleware registered.');
 console.log('  cookie.secure  :', IS_PROD);
 console.log('  cookie.sameSite:', IS_PROD ? 'none' : 'lax');
 
-// FIX 5 — Session debug middleware.
+// FIX 5 / FIX 8 — Session debug middleware (development only).
 // Logs session ID and any stored keys on every request so you can confirm
 // the same session is arriving between /auth/signup and /auth/verify-code.
-// Remove (or guard with !IS_PROD) once the bug is confirmed fixed.
-app.use((req, res, next) => {
-  console.log(`[${req.method}] ${req.path} | sessionID: ${req.sessionID} | keys: [${Object.keys(req.session).filter(k => k !== 'cookie').join(', ') || 'none'}]`);
-  next();
-});
+// Disabled in production: session IDs are credentials and must not sit in logs.
+if (!IS_PROD) {
+  app.use((req, res, next) => {
+    console.log(`[${req.method}] ${req.path} | sessionID: ${req.sessionID} | keys: [${Object.keys(req.session).filter(k => k !== 'cookie').join(', ') || 'none'}]`);
+    next();
+  });
+}
 
 // ─── ROUTES ───────────────────────────────────────────────────────────────────
 // FIX 6 — Root now serves the actual homepage instead of a JSON blob.

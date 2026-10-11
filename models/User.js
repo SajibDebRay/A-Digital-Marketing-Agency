@@ -7,6 +7,9 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true },
   verificationCode:    { type: String, default: null },
 codeExpiresAt:       { type: Date,   default: null },
+  // true once the emailed code is verified. Existing users (no field in the DB) read as true,
+  // so nobody is locked out. New signups are created with verified:false in routes/auth.js.
+  verified:            { type: Boolean, default: true },
 });
 
 // Hash password before saving

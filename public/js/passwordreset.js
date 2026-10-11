@@ -11,13 +11,20 @@ document.addEventListener('DOMContentLoaded', () => {
     e.preventDefault();
 
     const passwordInput = document.getElementById('newPassword');
+    const confirmInput  = document.getElementById('confirmPassword');
 
-    if (!passwordInput) {
+    if (!passwordInput || !confirmInput) {
       console.error("❌ Password input not found");
       return;
     }
 
-    const password = passwordInput.value.trim();
+    // Not trimmed on purpose: the password must be saved exactly as typed,
+    // because login.html and signup.html don't trim it either.
+    const password = passwordInput.value;
+
+    // pass.js already shows the "did not match" message and blocks its own submit,
+    // but this handler would still run — so never send mismatched passwords to the server.
+    if (password !== confirmInput.value) return;
 
     try {
       const res = await fetch('/auth/reset-password', {
@@ -30,11 +37,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       const data = await res.json();
-      console.log("Server response:", data);
 
       if (res.ok && data.success) {
-        console.log("✅ Redirecting to home...");
-        window.location.href = '/home.html';
+        window.location.href = '/';
       } else {
         alert(data.message || 'Failed to update password');
       }

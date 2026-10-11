@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    console.log("Form submitted");
 
     const input = document.getElementById('codeInput');
     if (!input) {
@@ -15,26 +14,22 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const code = input.value.trim();
-    // Uses the same key that signup.html actually saves ('resetEmail')
-    const email = localStorage.getItem('resetEmail');
-    console.log("Code entered:", code, "| Email:", email);
 
-    if (!email) {
-      alert("Session expired. Please sign up again.");
-      window.location.href = '/signup.html';
-      return;
-    }
+    // The page's inline script already shows the "enter 6 digits" error.
+    // Don't send incomplete codes to the server (each wrong code uses up one of the 5 attempts).
+    if (!/^\d{6}$/.test(code)) return;
 
+    // The server remembers which email/flow this is (signup, unverified login or password reset)
+    // in the session, so no email is needed from localStorage any more.
     try {
       const res = await fetch('/auth/verify-code', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({ code, email })
+        body: JSON.stringify({ code })
       });
 
       const data = await res.json();
-      console.log("Server response:", data);
 
       if (res.ok && data.success) {
         localStorage.removeItem('resetEmail'); // clean up after success
@@ -51,37 +46,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ============================
   // RESEND CODE
+  // (the countdown timer is handled by the inline script in vcode.html)
   // ============================
   const resendBtn = document.getElementById('resendBtn');
-  const timerText = document.getElementById('timerText');
-
-  if (!resendBtn || !timerText) return;
-
-  let cooldown = 30;
-  let timer;
+  if (!resendBtn) return;
 
   resendBtn.addEventListener('click', async () => {
-    resendBtn.disabled = true;
-
-    const email = localStorage.getItem('resetEmail');
-
-    if (!email) {
-      alert("Session expired. Please sign up again.");
-      window.location.href = '/signup.html';
-      return;
-    }
-
     try {
       const res = await fetch('/auth/send-code', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({ email })
+        body: JSON.stringify({})   // server uses the email stored in the session
       });
 
       if (res.ok) {
         console.log("Code resent");
-        startCooldown();
       } else {
         const text = await res.text();
         console.error("Resend failed:", text);
@@ -95,19 +75,4 @@ document.addEventListener("DOMContentLoaded", () => {
       resendBtn.disabled = false;
     }
   });
-
-  function startCooldown() {
-    cooldown = 30;
-    timerText.textContent = `Resend available in ${cooldown}s`;
-
-    timer = setInterval(() => {
-      cooldown--;
-      timerText.textContent = `Resend available in ${cooldown}s`;
-      if (cooldown <= 0) {
-        clearInterval(timer);
-        resendBtn.disabled = false;
-        timerText.textContent = '';
-      }
-    }, 1000);
-  }
 });

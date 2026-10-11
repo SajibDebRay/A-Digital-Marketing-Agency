@@ -461,11 +461,13 @@
         const result = await response.json();
 
         if (result.success) {
-          alert(result.message || 'Welcome back!');
-          window.location.href = result.redirect || '/home.html';
-        } else {
-          alert(result.message || 'Invalid credentials.');
-        }
+  alert(result.message || 'Welcome back!');
+  window.location.href = result.redirect || '/';
+} else {
+  alert(result.message || 'Invalid credentials.');
+  // unverified account: the server sent a new code, so go to the verification page
+  if (result.redirect) window.location.href = result.redirect;
+}
       } catch (err) {
         console.error(err);
         alert('Network error — please try again.');
