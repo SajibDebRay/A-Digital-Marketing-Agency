@@ -11,76 +11,88 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-L10F252HLB');
   </script>
 
-  <!-- ── PRIMARY SEO TAGS ── -->
   <title>Digital Marketing Blog | CrackFlow</title>
-  <meta name="description" content="The CrackFlow digital marketing blog: practical digital marketing tips, email marketing tips, SEO tips for small businesses, and business growth strategies. New guides launching soon.">
+  <meta name="description" content="Read practical digital marketing tips for small business: SEO, email, social media &amp; lead generation guides from CrackFlow. Learn what works and grow online!">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="author" content="CrackFlow">
   <link rel="canonical" href="https://crackflow.up.railway.app/blog.html">
 
-  <!-- ── OPEN GRAPH / SOCIAL ── -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="CrackFlow">
   <meta property="og:title" content="Digital Marketing Blog | CrackFlow">
-  <meta property="og:description" content="Practical digital marketing tips, email marketing tips, SEO tips for small businesses, and business growth strategies from the CrackFlow team.">
+  <meta property="og:description" content="Practical digital marketing, SEO, email marketing and lead generation tips for small businesses from the CrackFlow team.">
   <meta property="og:url" content="https://crackflow.up.railway.app/blog.html">
+  <!-- TODO: replace with a 1200x630 blog banner (crackflow-digital-marketing-blog.webp) and use it in twitter:image too -->
   <meta property="og:image" content="https://crackflow.up.railway.app/crackflow-logo.png">
+  <meta property="og:image:alt" content="CrackFlow digital marketing blog">
   <meta property="og:locale" content="en_US">
-
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Digital Marketing Blog | CrackFlow">
-  <meta name="twitter:description" content="Digital marketing tips, email marketing tips, SEO tips for small businesses, and business growth strategies, from CrackFlow.">
+  <meta name="twitter:description" content="Digital marketing, SEO, email marketing and lead generation tips for small businesses, from CrackFlow.">
   <meta name="twitter:image" content="https://crackflow.up.railway.app/crackflow-logo.png">
 
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-  <!-- Cr@ckFlow shared design system -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./crackflow.css">
-  <!-- Blog page styles -->
   <link rel="stylesheet" href="./blog.css">
 
-  <!-- ── STRUCTURED DATA ── -->
+  <!-- Schema. When posts go live, add a "blogPost" array to the Blog node, e.g.
+       "blogPost": [ { "@type": "BlogPosting", "headline": "Post title", "url": "https://crackflow.up.railway.app/blog/post-slug.html", "datePublished": "YYYY-MM-DD" } ] -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@graph": [
-      {
-        "@type": "Blog",
-        "@id": "https://crackflow.up.railway.app/blog.html#blog",
-        "url": "https://crackflow.up.railway.app/blog.html",
+      { "@type": "Blog", "@id": "https://crackflow.up.railway.app/blog.html#blog", "url": "https://crackflow.up.railway.app/blog.html",
         "name": "CrackFlow Digital Marketing Blog",
-        "description": "Digital marketing tips, email marketing tips, SEO tips for small businesses and business growth strategies from CrackFlow.",
-        "publisher": { "@id": "https://crackflow.up.railway.app/#business" },
-        "isPartOf": { "@id": "https://crackflow.up.railway.app/#website" },
-        "inLanguage": "en"
-      },
-      {
-        "@type": "BreadcrumbList",
-        "@id": "https://crackflow.up.railway.app/blog.html#breadcrumb",
-        "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://crackflow.up.railway.app/" },
-          { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://crackflow.up.railway.app/blog.html" }
-        ]
-      },
-      {
-        "@type": "ProfessionalService",
-        "@id": "https://crackflow.up.railway.app/#business",
-        "name": "CrackFlow",
-        "url": "https://crackflow.up.railway.app/"
-      },
-      {
-        "@type": "WebSite",
-        "@id": "https://crackflow.up.railway.app/#website",
-        "url": "https://crackflow.up.railway.app/",
-        "name": "CrackFlow"
-      }
+        "description": "Digital marketing, SEO, email marketing and lead generation tips and guides for small businesses from CrackFlow.",
+        "publisher": { "@id": "https://crackflow.up.railway.app/#business" }, "isPartOf": { "@id": "https://crackflow.up.railway.app/#website" },
+        "breadcrumb": { "@id": "https://crackflow.up.railway.app/blog.html#breadcrumb" }, "inLanguage": "en" },
+      { "@type": "BreadcrumbList", "@id": "https://crackflow.up.railway.app/blog.html#breadcrumb", "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://crackflow.up.railway.app/" },
+        { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://crackflow.up.railway.app/blog.html" } ] },
+      { "@type": "ProfessionalService", "@id": "https://crackflow.up.railway.app/#business", "name": "CrackFlow", "url": "https://crackflow.up.railway.app/" },
+      { "@type": "WebSite", "@id": "https://crackflow.up.railway.app/#website", "url": "https://crackflow.up.railway.app/", "name": "CrackFlow" }
     ]
   }
   </script>
+
+  <style>
+    :root { --navy:#0b1426; --navy-mid:#132040; --gold:#c9a84c; --gold-light:#e8c97a; --cream:#f7f3ec; --white:#fff; --muted:#8a96b0; --border:rgba(201,168,76,.22); --border-soft:rgba(201,168,76,.12); }
+    .breadcrumb-nav { padding:.9rem 0; background:var(--navy); }
+    .breadcrumb-nav ol { list-style:none; display:flex; gap:.5rem; margin:0; padding:0; font:300 .78rem 'Jost',sans-serif; letter-spacing:.05em; color:var(--muted); }
+    .breadcrumb-nav li + li::before { content:'›'; margin-right:.5rem; color:var(--gold); }
+    .breadcrumb-nav a { color:var(--gold); text-decoration:none; }
+    .blog-h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(1.8rem,3vw,2.5rem); font-weight:500; color:var(--white); text-align:center; margin-bottom:.6rem; letter-spacing:.02em; }
+    .blog-sub { font:300 .9rem/1.8 'Jost',sans-serif; color:var(--muted); text-align:center; max-width:620px; margin:0 auto 2rem; letter-spacing:.03em; }
+    .blog-sub a, .topic-block a, .author-card a { color:var(--gold); text-decoration:none; }
+    .topic-block h3 { font:500 1.25rem 'Cormorant Garamond',serif; color:var(--white); margin-bottom:.6rem; }
+    .topic-block h3 i { color:var(--gold); margin-right:6px; }
+    .topic-block p { font:300 .88rem/1.8 'Jost',sans-serif; color:var(--muted); margin:0; }
+    .author-card { max-width:760px; margin:0 auto; background:rgba(19,32,64,.5); border:1px solid var(--border-soft); border-radius:14px; padding:1.6rem 1.8rem; font:300 .9rem/1.85 'Jost',sans-serif; color:var(--muted); text-align:center; }
+    .author-card strong { color:var(--cream); font-weight:500; }
+    .btn-cta-small { display:inline-block; padding:.65rem 1.6rem; background:linear-gradient(135deg,var(--gold),var(--gold-light)); color:var(--navy)!important; font:600 .72rem 'Jost',sans-serif; letter-spacing:.14em; text-transform:uppercase; border-radius:6px; text-decoration:none; transition:opacity .2s,transform .2s; }
+    .btn-cta-small:hover { opacity:.85; transform:translateY(-1px); text-decoration:none; }
+    .btn-cta-small.outline { background:transparent; border:1px solid var(--border); color:var(--cream)!important; }
+    .btn-cta-small.outline:hover { border-color:var(--gold); color:var(--gold-light)!important; }
+    .btn-row { display:flex; flex-wrap:wrap; gap:.7rem; justify-content:center; }
+    .section-pad { padding:4.5rem 0; position:relative; }
+    /* post card (used when you paste posts into #postGrid) */
+    .post-card { background:rgba(19,32,64,.55); border:1px solid var(--border-soft); border-radius:14px; overflow:hidden; height:100%; transition:border-color .3s,transform .25s; }
+    .post-card:hover { border-color:var(--border); transform:translateY(-4px); }
+    .post-card img { width:100%; height:auto; display:block; }
+    .post-body { padding:1.3rem 1.4rem 1.5rem; }
+    .post-cat { display:inline-block; font:500 .66rem 'Jost',sans-serif; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin-bottom:.5rem; }
+    .post-card h3 { font:500 1.2rem/1.35 'Cormorant Garamond',serif; margin-bottom:.6rem; }
+    .post-card h3 a { color:var(--white); text-decoration:none; }
+    .post-card h3 a:hover { color:var(--gold-light); }
+    .post-card p { font:300 .85rem/1.7 'Jost',sans-serif; color:var(--muted); margin-bottom:.8rem; }
+    .post-meta { font:300 .75rem 'Jost',sans-serif; color:var(--muted); letter-spacing:.05em; }
+    @media (max-width:768px) { .section-pad { padding:3.2rem 0; } }
+  </style>
 </head>
 
 <body id="top">
@@ -92,14 +104,12 @@
     <button onclick="document.getElementById('auth-notice').style.display='none'" style="position:absolute; right:16px; top:50%; transform:translateY(-50%); background:none; border:none; color:var(--gold); font-size:1rem; cursor:pointer; line-height:1;">✕</button>
   </div>
 
-  <!-- ── NAVBAR ── -->
+  <!-- NAVBAR -->
   <nav class="navbar navbar-expand-sm navbar-dark mb-0" aria-label="Main navigation">
     <a href="/" class="navbar-brand" aria-label="CrackFlow — Home">
       <img src="crackflow-logo.png" alt="CrackFlow digital marketing agency logo" width="64" height="64">
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse"
-      data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-      aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -111,143 +121,153 @@
         <li class="nav-item"><a class="nav-link" href="/pricing.html">Pricing</a></li>
         <li class="nav-item"><a class="nav-link" href="/contact.html">Contact</a></li>
         <li class="nav-item"><a class="nav-link" href="/aboutus.html">About</a></li>
-
         <li class="nav-item dropdown ml-2">
-          <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown"
-            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-            aria-label="User account menu">
+          <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="User account menu">
             <i class="fas fa-user-circle fa-lg" style="color: var(--gold);"></i>
           </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown" id="user-dropdown-menu">
-            <!-- Injected by auth-check.js -->
-          </div>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown" id="user-dropdown-menu"><!-- Injected by auth-check.js --></div>
         </li>
       </ul>
     </div>
   </nav>
   <hr class="gold-rule">
 
-  <!-- ── PAGE HEADER ── -->
-  <section class="page-header">
+  <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+    <div class="container"><ol><li><a href="/">Home</a></li><li aria-current="page">Blog</li></ol></div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <header class="page-header">
     <div class="page-header-glow"></div>
     <div class="container position-relative" style="z-index:2;">
       <div class="page-eyebrow">Insights &amp; Ideas</div>
-      <h1>Digital Marketing Blog</h1>
+      <h1>Digital Marketing Blog: Tips &amp; Guides for Small Businesses</h1>
       <p>
-        Practical <strong>digital marketing tips</strong>, <strong>email marketing tips</strong>,
-        <strong>SEO tips for small businesses</strong>, and <strong>business growth strategies</strong> —
-        written by the CrackFlow team to help you grow your business online.
+        Practical <strong>digital marketing tips</strong> on SEO, email marketing, social media and lead generation, written by the CrackFlow team to help small businesses and startups grow online.
       </p>
     </div>
-  </section>
+  </header>
 
-  <!-- ── BLOG / EMPTY STATE ── -->
-  <section class="section-blog">
+  <main>
+  <!-- LATEST POSTS -->
+  <section class="section-blog" aria-labelledby="posts-heading">
     <div class="blog-bg-glow"></div>
     <div class="container">
-      <div class="empty-state">
+      <h2 class="blog-h2" id="posts-heading" style="margin-top:1rem;">Latest Digital Marketing Posts</h2>
+      <p class="blog-sub">New guides for small business owners, published regularly.</p>
 
-        <!-- animated icon -->
+      <!--
+        HOW TO ADD A POST (when your first post is live):
+        1. Delete the whole <div class="empty-state"> block below (the "Coming Soon" message).
+        2. Paste the card template below inside <div class="row" id="postGrid">, newest post first.
+        3. Link the card title and image to the post URL, e.g. /blog/local-seo-checklist-small-business.html
+
+        <div class="col-lg-4 col-md-6 mb-4">
+          <article class="post-card">
+            <a href="/blog/your-post-slug.html"><img src="/blog/images/your-post-slug.webp" alt="Describe the image" loading="lazy" width="400" height="210"></a>
+            <div class="post-body">
+              <span class="post-cat">SEO</span>
+              <h3><a href="/blog/your-post-slug.html">Post Title With the Main Keyword</a></h3>
+              <p>A 20 to 30 word summary of the post.</p>
+              <div class="post-meta"><time datetime="YYYY-MM-DD">Month DD, YYYY</time> · 6 min read</div>
+            </div>
+          </article>
+        </div>
+      -->
+      <div class="row" id="postGrid"></div>
+
+      <div class="empty-state">
         <div class="empty-icon-outer">
           <div class="empty-icon-ring"></div>
           <div class="empty-icon-ring-2"></div>
-          <div class="empty-icon-circle">
-            <i class="fas fa-pen-nib"></i>
-          </div>
+          <div class="empty-icon-circle"><i class="fas fa-pen-nib"></i></div>
         </div>
-
-        <!-- coming soon badge -->
-        <div class="coming-soon-badge">
-          <span class="coming-soon-dot"></span>
-          Coming Soon
-        </div>
-
-        <h2 class="empty-title">Our First Digital Marketing Tips Are on the Way</h2>
+        <div class="coming-soon-badge"><span class="coming-soon-dot"></span> Coming Soon</div>
+        <h3 class="empty-title">Our First Guides Are on the Way</h3>
         <p class="empty-desc">
-          We're building a resource hub of actionable digital marketing tips, email marketing tips,
-          SEO tips for small businesses, and business growth strategies — the same insights we use
-          to grow our own clients' businesses. Check back soon for our first posts.
+          We are writing actionable guides based on the work we do for clients every day. Follow us to hear when the first posts go live.
         </p>
-
-        <div class="empty-divider"></div>
-
-        <!-- topic previews -->
-        <div class="topic-pills">
-          <span class="topic-pill"><i class="fas fa-search"></i> SEO &amp; Rankings</span>
-          <span class="topic-pill"><i class="fas fa-envelope"></i> Email Marketing</span>
-          <span class="topic-pill"><i class="fas fa-share-alt"></i> Social Media</span>
-          <span class="topic-pill"><i class="fas fa-database"></i> Lead Generation</span>
-          <span class="topic-pill"><i class="fas fa-chart-line"></i> Growth Strategies</span>
-          <span class="topic-pill"><i class="fas fa-pencil-ruler"></i> Branding</span>
-        </div>
-
-        <!-- follow for updates (replaces the non-functional notify form) -->
-        <p class="notify-note" style="margin-top:1.8rem;">
-          Want to hear when the first posts go live? Follow us on
+        <p class="notify-note" style="margin-top:1.2rem;">
+          Follow us on
           <a href="https://web.facebook.com/profile.php?id=61581933644275" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:none;">Facebook</a>
           or
           <a href="https://www.instagram.com/crackflow1/" target="_blank" rel="noopener" style="color:var(--gold); text-decoration:none;">Instagram</a>.
         </p>
-
       </div>
     </div>
   </section>
 
-  <!-- ── WHAT WE'LL COVER ── -->
-  <section class="section-blog" aria-labelledby="topics-heading">
+  <!-- TOPICS -->
+  <section class="section-blog section-pad" aria-labelledby="topics-heading">
     <div class="container">
-      <h2 id="topics-heading" class="empty-title" style="font-size:1.8rem; margin-bottom:2rem;">
-        What You'll Find on the CrackFlow Digital Marketing Blog
-      </h2>
+      <h2 class="blog-h2" id="topics-heading">Topics We Cover</h2>
+      <div class="topic-pills" style="justify-content:center; margin-bottom:2.5rem;">
+        <!-- TODO: link each pill to its category page or filter once posts exist -->
+        <span class="topic-pill"><i class="fas fa-search"></i> SEO &amp; Rankings</span>
+        <span class="topic-pill"><i class="fas fa-envelope"></i> Email Marketing</span>
+        <span class="topic-pill"><i class="fas fa-share-alt"></i> Social Media</span>
+        <span class="topic-pill"><i class="fas fa-database"></i> Lead Generation</span>
+        <span class="topic-pill"><i class="fas fa-chart-line"></i> Growth Strategies</span>
+        <span class="topic-pill"><i class="fas fa-pencil-ruler"></i> Branding</span>
+      </div>
+    </div>
+  </section>
 
+  <!-- WHAT YOU'LL FIND -->
+  <section class="section-blog section-pad" aria-labelledby="find-heading">
+    <div class="container">
+      <h2 class="blog-h2" id="find-heading" style="margin-bottom:2.2rem;">What You'll Find on the CrackFlow Blog</h2>
       <div class="row">
-        <div class="col-md-6 mb-4">
-          <h3><i class="fas fa-search" style="color:var(--gold);"></i> SEO Tips for Small Businesses</h3>
-          <p>
-            Ranking on Google doesn't require a massive budget. Our SEO tips for small businesses will
-            walk through local SEO setup, on-page optimization, keyword research, and the technical
-            fixes that move the needle fastest for businesses just getting started online.
-          </p>
+        <div class="col-md-6 mb-4 topic-block">
+          <h3><i class="fas fa-search"></i> SEO Tips for Small Businesses</h3>
+          <p>Local SEO setup, keyword research, on-page optimization and the technical fixes that help a new site get found. Want a review of your own site? <a href="contact.html">Ask for a free SEO consultation</a>.</p>
         </div>
-
-        <div class="col-md-6 mb-4">
-          <h3><i class="fas fa-envelope" style="color:var(--gold);"></i> Email Marketing Tips</h3>
-          <p>
-            Email remains one of the highest-ROI channels in marketing. We'll share email marketing
-            tips covering list building, segmentation, subject lines, and automated sequences that
-            turn subscribers into paying customers.
-          </p>
+        <div class="col-md-6 mb-4 topic-block">
+          <h3><i class="fas fa-envelope"></i> Email Marketing Tips</h3>
+          <p>List building, subject lines, segmentation and automated sequences that turn subscribers into customers. See our <a href="portfolio.html#email-campaign">email campaign work</a>.</p>
         </div>
-
-        <div class="col-md-6 mb-4">
-          <h3><i class="fas fa-bullseye" style="color:var(--gold);"></i> Digital Marketing Tips</h3>
-          <p>
-            From paid ads to organic growth, our digital marketing tips break down what actually
-            works in today's landscape — practical, no-fluff advice you can apply to your own
-            campaigns this week.
-          </p>
+        <div class="col-md-6 mb-4 topic-block">
+          <h3><i class="fas fa-database"></i> Lead Generation Guides</h3>
+          <p>How to find and filter the right contacts from LinkedIn and Google Maps for outreach. See a <a href="portfolio.html#b2b-lead-generation">lead generation sample</a>.</p>
         </div>
-
-        <div class="col-md-6 mb-4">
-          <h3><i class="fas fa-chart-line" style="color:var(--gold);"></i> Business Growth Strategies</h3>
-          <p>
-            Marketing only matters if it grows the business. We'll publish business growth strategies
-            that connect SEO, email, and social media into one system for acquiring and retaining
-            customers.
-          </p>
+        <div class="col-md-6 mb-4 topic-block">
+          <h3><i class="fas fa-chart-line"></i> Business Growth Strategies</h3>
+          <p>How SEO, email and social media work together to win and keep customers, with costs explained on our <a href="pricing.html">Pricing page</a>.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ── FOOTER ── -->
+  <!-- AUTHOR (E-E-A-T) -->
+  <section class="section-blog section-pad" aria-labelledby="author-heading">
+    <div class="container">
+      <h2 class="blog-h2" id="author-heading">Who Writes the CrackFlow Blog</h2>
+      <div class="author-card">
+        <strong>Sajib Deb Ray</strong>, founder of CrackFlow, has worked in digital marketing since 2021 on Upwork and Fiverr, and founded CrackFlow in 2025. Our guides come from real client work. Learn more <a href="aboutus.html">about CrackFlow</a> or read our reviews on <a href="https://clutch.co/profile/crackflow" target="_blank" rel="noopener">Clutch</a>.
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section-blog section-pad" aria-labelledby="blog-cta-heading" style="text-align:center;">
+    <div class="container">
+      <h2 class="blog-h2" id="blog-cta-heading">Need Help Applying These Tips?</h2>
+      <p class="blog-sub">Tell us about your business and we will recommend the right next step.</p>
+      <div class="btn-row">
+        <a href="contact.html" class="btn-cta-small">Book a Free Consultation</a>
+        <a href="pricing.html" class="btn-cta-small outline">See Pricing</a>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
       <div class="row mb-4">
         <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
           <div class="footer-brand">Cr@ckFlow</div>
-          <p class="footer-tagline">Your trusted <strong style="font-weight:400; color:var(--cream);">digital marketing agency for small business</strong> and startups.<br>
-          Let's grow together.</p>
+          <p class="footer-tagline">Your trusted <strong style="font-weight:400; color:var(--cream);">digital marketing agency for small business</strong> and startups.<br>Let's grow together.</p>
           <div class="footer-social">
             <a href="https://web.facebook.com/profile.php?id=61581933644275" class="social-btn" target="_blank" rel="noopener" aria-label="CrackFlow on Facebook"><i class="fab fa-facebook-f"></i></a>
             <a href="https://www.instagram.com/crackflow1/" class="social-btn" target="_blank" rel="noopener" aria-label="CrackFlow on Instagram"><i class="fab fa-instagram"></i></a>
@@ -258,7 +278,7 @@
           <a href="/" class="footer-link">Home</a>
           <a href="/portfolio.html" class="footer-link">Portfolio</a>
           <a href="/blog.html" class="footer-link">Blog</a>
-          <a href="Yourorders.html" class="footer-link">Your Orders</a>
+          <a href="/Yourorders.html" class="footer-link">Your Orders</a>
           <a href="/pricing.html" class="footer-link">Pricing</a>
           <a href="/aboutus.html" class="footer-link">About Us</a>
           <a href="/contact.html" class="footer-link">Contact</a>
@@ -273,22 +293,14 @@
         </div>
         <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
           <div class="footer-col-title">Contact Us</div>
-          <a href="https://maps.app.goo.gl/zppa6JNUbD5wGhRp8" class="footer-link" target="_blank" rel="noopener">
-            <i class="fas fa-map-marker-alt mr-2" style="color:var(--gold); font-size:0.75rem;"></i>Shopnil 56, Mirzagangal, Sylhet, Bangladesh
-          </a>
-          <a href="mailto:crackflw@gmail.com" class="footer-link">
-            <i class="fas fa-envelope mr-2" style="color:var(--gold); font-size:0.75rem;"></i>crackflw@gmail.com
-          </a>
-          <a href="tel:+8801753565232" class="footer-link">
-            <i class="fab fa-whatsapp mr-2" style="color:var(--gold); font-size:0.75rem;"></i>+880 1753 565232
-          </a>
+          <a href="https://maps.app.goo.gl/8VZNyMZQwxq3B3JQ8" class="footer-link" target="_blank" rel="noopener"><i class="fas fa-map-marker-alt mr-2" style="color:var(--gold); font-size:0.75rem;"></i>Shopnil 56, Mirzagangal, Sylhet, Bangladesh</a>
+          <a href="mailto:crackflw@gmail.com" class="footer-link"><i class="fas fa-envelope mr-2" style="color:var(--gold); font-size:0.75rem;"></i>crackflw@gmail.com</a>
+          <a href="tel:+8801753565232" class="footer-link"><i class="fab fa-whatsapp mr-2" style="color:var(--gold); font-size:0.75rem;"></i>+880 1753 565232</a>
         </div>
       </div>
       <div class="footer-bottom d-flex flex-wrap align-items-center justify-content-between">
         <p>&copy; 2025-2026 Cr@ckFlow. All rights reserved. Founded by Sajib Deb Ray.</p>
-        <a href="#top" class="back-to-top mt-2">
-          <i class="fas fa-arrow-up" style="font-size:0.65rem;"></i> Back to Top
-        </a>
+        <a href="#top" class="back-to-top mt-2"><i class="fas fa-arrow-up" style="font-size:0.65rem;"></i> Back to Top</a>
       </div>
     </div>
   </footer>
