@@ -33,47 +33,53 @@
   <meta name="twitter:description" content="Affordable digital marketing packages from $5.99: SEO, email marketing, lead generation, social media and virtual assistant services.">
   <meta name="twitter:image" content="https://crackflow.up.railway.app/crackflow-logo.png">
 
-  <!-- Schema: WebPage + Services/Offers + Breadcrumb + FAQPage (prices must match the page) -->
+  <!-- Schema: WebPage + Services/Offers + Breadcrumb + FAQPage + Organization + WebSite.
+       Prices, package terms and FAQ text must match the visible page. -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@graph": [
       { "@type": "WebPage", "@id": "https://crackflow.up.railway.app/pricing.html#webpage", "url": "https://crackflow.up.railway.app/pricing.html", "name": "Digital Marketing Packages & Pricing | CrackFlow",
-        "description": "CrackFlow's digital marketing packages and prices: email marketing, B2B data and lead generation, SEO, virtual assistant and social media management.",
+        "description": "CrackFlow's digital marketing services and prices: SEO, social media management, email marketing, Meta and Google Ads management, lead generation, B2B data and virtual assistant support.",
         "isPartOf": { "@id": "https://crackflow.up.railway.app/#website" }, "about": { "@id": "https://crackflow.up.railway.app/#business" },
         "breadcrumb": { "@id": "https://crackflow.up.railway.app/pricing.html#breadcrumb" }, "inLanguage": "en" },
-      { "@type": "Service", "@id": "https://crackflow.up.railway.app/pricing.html#email-marketing", "name": "Email Marketing Package", "serviceType": "Email marketing",
-        "description": "500 email sends, newsletter or template design and email marketing software management.", "provider": { "@id": "https://crackflow.up.railway.app/#business" },
-        "offers": { "@type": "Offer", "price": "5.99", "priceCurrency": "USD", "url": "https://crackflow.up.railway.app/pricing.html#email-marketing" } },
+      { "@type": "Service", "@id": "https://crackflow.up.railway.app/pricing.html#seo-package", "name": "SEO Services", "serviceType": "Search engine optimization",
+        "description": "30-day SEO package covering on-page optimisation, keyword strategy and research, and an organic growth plan.", "provider": { "@id": "https://crackflow.up.railway.app/#business" },
+        "offers": { "@type": "Offer", "price": "249.99", "priceCurrency": "USD", "description": "30-day SEO package.", "url": "https://crackflow.up.railway.app/pricing.html#seo-package" } },
+      { "@type": "Service", "@id": "https://crackflow.up.railway.app/pricing.html#social-media", "name": "Social Media Management & Growth", "serviceType": "Social media management",
+        "description": "Management of one social media account on one platform, covering organic engagement, community management, branding and message replies. Priced per account, per month; does not cover multiple platforms or multiple accounts.", "provider": { "@id": "https://crackflow.up.railway.app/#business" },
+        "offers": { "@type": "Offer", "priceCurrency": "USD", "description": "1 account, 1 platform, per month.", "url": "https://crackflow.up.railway.app/pricing.html#social-media", "priceSpecification": { "@type": "UnitPriceSpecification", "price": "49.99", "priceCurrency": "USD", "unitText": "month" } } },
+      { "@type": "Service", "@id": "https://crackflow.up.railway.app/pricing.html#email-marketing", "name": "Email Marketing & Template Design", "serviceType": "Email marketing",
+        "description": "One-time package of 500 email sends, newsletter or template design and email marketing software management. Not a monthly subscription.", "provider": { "@id": "https://crackflow.up.railway.app/#business" },
+        "offers": { "@type": "Offer", "price": "5.99", "priceCurrency": "USD", "description": "One-time fee for 500 email sends.", "url": "https://crackflow.up.railway.app/pricing.html#email-marketing" } },
+      { "@type": "Service", "@id": "https://crackflow.up.railway.app/pricing.html#meta-google-ads", "name": "Meta & Google Ads", "serviceType": "Paid advertising management",
+        "description": "Management of one campaign on one selected platform: either Meta (Facebook and Instagram) Ads or Google Ads, chosen by the customer. Advertising budget is not included.", "provider": { "@id": "https://crackflow.up.railway.app/#business" },
+        "offers": { "@type": "Offer", "priceCurrency": "USD", "description": "1 campaign, 1 selected platform (Meta or Google Ads). Ad budget excluded.", "url": "https://crackflow.up.railway.app/pricing.html#meta-google-ads", "priceSpecification": { "@type": "UnitPriceSpecification", "price": "20.00", "priceCurrency": "USD", "unitText": "campaign" } } },
       { "@type": "Service", "@id": "https://crackflow.up.railway.app/pricing.html#lead-generation", "name": "B2B Data Services & Lead Generation", "serviceType": "Lead generation",
         "description": "1,000 B2B or B2C emails, with phone numbers where available, sourced through LinkedIn data extraction.", "provider": { "@id": "https://crackflow.up.railway.app/#business" },
-        "offers": { "@type": "Offer", "price": "149.99", "priceCurrency": "USD", "url": "https://crackflow.up.railway.app/pricing.html#lead-generation" } },
-      { "@type": "Service", "@id": "https://crackflow.up.railway.app/pricing.html#seo-package", "name": "SEO Package", "serviceType": "Search engine optimization",
-        "description": "30-day SEO package covering on-page optimisation, keyword strategy and organic growth.", "provider": { "@id": "https://crackflow.up.railway.app/#business" },
-        "offers": { "@type": "Offer", "price": "249.99", "priceCurrency": "USD", "url": "https://crackflow.up.railway.app/pricing.html#seo-package" } },
+        "offers": { "@type": "Offer", "price": "149.99", "priceCurrency": "USD", "description": "Fixed price for 1,000 leads.", "url": "https://crackflow.up.railway.app/pricing.html#lead-generation" } },
+      { "@type": "Service", "@id": "https://crackflow.up.railway.app/pricing.html#ready-database", "name": "Ready-to-Use B2B Database", "serviceType": "B2B data",
+        "description": "Ready-to-use database of 1,000 email and phone contacts with company information.", "provider": { "@id": "https://crackflow.up.railway.app/#business" },
+        "offers": { "@type": "Offer", "price": "49.99", "priceCurrency": "USD", "description": "Fixed price for 1,000 contacts.", "url": "https://crackflow.up.railway.app/pricing.html#ready-database" } },
       { "@type": "Service", "@id": "https://crackflow.up.railway.app/pricing.html#virtual-assistant", "name": "Virtual Assistant & Administrative Support", "serviceType": "Virtual assistant",
         "description": "Five hours per day of support covering WordPress website management, real estate listing support and Excel data entry.", "provider": { "@id": "https://crackflow.up.railway.app/#business" },
-        "offers": { "@type": "Offer", "priceCurrency": "USD", "url": "https://crackflow.up.railway.app/pricing.html#virtual-assistant", "priceSpecification": { "@type": "UnitPriceSpecification", "price": "49.99", "priceCurrency": "USD", "unitText": "day" } } },
-      { "@type": "Service", "@id": "https://crackflow.up.railway.app/pricing.html#ready-database", "name": "B2B Data Services: Ready Database", "serviceType": "B2B data",
-        "description": "Ready-to-use database of 1,000 email and phone contacts with company information.", "provider": { "@id": "https://crackflow.up.railway.app/#business" },
-        "offers": { "@type": "Offer", "price": "49.99", "priceCurrency": "USD", "url": "https://crackflow.up.railway.app/pricing.html#ready-database" } },
-      { "@type": "Service", "@id": "https://crackflow.up.railway.app/pricing.html#social-media", "name": "Social Media Marketing Package", "serviceType": "Social media management",
-        "description": "Business account management covering branding, engagement and message replies, priced per account per month.", "provider": { "@id": "https://crackflow.up.railway.app/#business" },
-        "offers": { "@type": "Offer", "priceCurrency": "USD", "url": "https://crackflow.up.railway.app/pricing.html#social-media", "priceSpecification": { "@type": "UnitPriceSpecification", "price": "49.99", "priceCurrency": "USD", "unitText": "month" } } },
+        "offers": { "@type": "Offer", "priceCurrency": "USD", "description": "Per day, 5 hours.", "url": "https://crackflow.up.railway.app/pricing.html#virtual-assistant", "priceSpecification": { "@type": "UnitPriceSpecification", "price": "49.99", "priceCurrency": "USD", "unitText": "day" } } },
       { "@type": "BreadcrumbList", "@id": "https://crackflow.up.railway.app/pricing.html#breadcrumb", "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://crackflow.up.railway.app/" },
         { "@type": "ListItem", "position": 2, "name": "Pricing", "item": "https://crackflow.up.railway.app/pricing.html" } ] },
       { "@type": "FAQPage", "@id": "https://crackflow.up.railway.app/pricing.html#faq", "mainEntity": [
-        { "@type": "Question", "name": "How much does an SEO package cost?", "acceptedAnswer": { "@type": "Answer", "text": "Our SEO package costs $249.99 for 30 days and covers on-page optimisation, keyword strategy and an organic growth plan. For larger needs, contact us for a custom quote." } },
-        { "@type": "Question", "name": "How much does email marketing cost?", "acceptedAnswer": { "@type": "Answer", "text": "Our email marketing package starts at $5.99 and includes 500 email sends, newsletter or template design, and email marketing software management." } },
-        { "@type": "Question", "name": "What does the lead generation package include?", "acceptedAnswer": { "@type": "Answer", "text": "For $149.99 you get 1,000 B2B or B2C emails, with phone numbers where available, sourced through LinkedIn data extraction." } },
-        { "@type": "Question", "name": "How much do social media and virtual assistant services cost?", "acceptedAnswer": { "@type": "Answer", "text": "Social media management is $49.99 per account per month. Virtual assistant and administrative support is $49.99 per day for 5 hours." } },
-        { "@type": "Question", "name": "How do I pay?", "acceptedAnswer": { "@type": "Answer", "text": "We accept payment through Skrill. After you place your order, send your payment screenshot to us on WhatsApp at +880 1753 565232." } },
-        { "@type": "Question", "name": "Can I combine packages or get a custom quote?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Contact us and we will recommend the right mix of services and give you a bundled or custom quote." } } ] },
-      { "@type": "ProfessionalService", "@id": "https://crackflow.up.railway.app/#business", "name": "CrackFlow", "url": "https://crackflow.up.railway.app/",
+        { "@type": "Question", "name": "How much do CrackFlow's digital marketing services cost?", "acceptedAnswer": { "@type": "Answer", "text": "Our core services are priced as follows: SEO services $249.99 for 30 days; social media management and growth $49.99 per month for one account on one platform; email marketing and template design $5.99 as a one-time fee for 500 email sends; and Meta & Google Ads management $20 for one campaign on one selected platform, either Meta or Google Ads (ad budget not included). We also offer additional services such as lead generation ($149.99 for 1,000 leads), a ready-to-use B2B database ($49.99 for 1,000 contacts) and virtual assistant support ($49.99 per day, 5 hours per day)." } },
+        { "@type": "Question", "name": "Are CrackFlow's digital marketing packages offered at fixed prices?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Each package on this page has a fixed, published price for the scope shown on its card. The Meta & Google Ads price is a management fee for one campaign on one selected platform and does not include your advertising budget." } },
+        { "@type": "Question", "name": "What is included in each digital marketing package?", "acceptedAnswer": { "@type": "Answer", "text": "The deliverables for every package are listed on its pricing card and in the comparison table above. Contact our team if you need more detail on any service." } },
+        { "@type": "Question", "name": "Can I purchase individual marketing services?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Our services are priced individually, so you can choose only the ones you need. If you would like to combine services, contact our team to discuss your requirements." } },
+        { "@type": "Question", "name": "Is the Meta or Google Ads advertising budget included in the management fee?", "acceptedAnswer": { "@type": "Answer", "text": "No. Our Meta & Google Ads fee of $20 covers management of one campaign on one selected platform (either Meta or Google Ads) only. The advertising budget is separate and is paid for the ads you run." } },
+        { "@type": "Question", "name": "Do you require an advance payment?", "acceptedAnswer": { "@type": "Answer", "text": "Payment terms are confirmed with our team before you place an order, so you know exactly what to expect. Contact us to discuss payment for your chosen service." } },
+        { "@type": "Question", "name": "Do I need to arrange a meeting before purchasing?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. We ask customers to arrange a short pre-purchase meeting with our team so we can confirm your requirements and the right service before the order is placed." } },
+        { "@type": "Question", "name": "Does CrackFlow offer free trials?", "acceptedAnswer": { "@type": "Answer", "text": "No. We do not currently offer free trials. Every service has a clear, fixed price listed on this page." } } ] },
+      { "@type": "Organization", "@id": "https://crackflow.up.railway.app/#business", "name": "CrackFlow", "url": "https://crackflow.up.railway.app/",
+        "logo": "https://crackflow.up.railway.app/crackflow-logo.png",
         "image": "https://crackflow.up.railway.app/crackflow-logo.png",
         "telephone": "+8801753565232",
-        "priceRange": "$5.99+",
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "Shopnil 56, Mirzagangal",
@@ -82,7 +88,6 @@
           "postalCode": "3100",
           "addressCountry": "BD"
         },
-        "hasMap": "https://maps.app.goo.gl/8VZNyMZQwxq3B3JQ8",
         "sameAs": ["https://clutch.co/profile/crackflow", "https://www.facebook.com/profile.php?id=61581933644275", "https://www.instagram.com/crackflow1/", "https://www.fiverr.com/sajib4321_"] },
       { "@type": "WebSite", "@id": "https://crackflow.up.railway.app/#website", "url": "https://crackflow.up.railway.app/", "name": "CrackFlow" }
     ]
@@ -204,69 +209,56 @@
   </div>
 </header>
 
+<!-- ===================== CONTENT SECTIONS ===================== -->
+
 <div class="pricing-strip" aria-label="Starting prices">
   <div class="container">
     <div class="pricing-strip-inner">
-      <div class="pricing-strip-item"><i class="fas fa-envelope"></i> Email Marketing from $5.99</div>
-      <div class="pricing-strip-item"><i class="fas fa-share-alt"></i> Social Media from $49.99</div>
-      <div class="pricing-strip-item"><i class="fas fa-briefcase"></i> Virtual Assistant from $49.99</div>
-      <div class="pricing-strip-item"><i class="fas fa-crosshairs"></i> Lead Generation from $149.99</div>
-      <div class="pricing-strip-item"><i class="fas fa-search"></i> SEO from $249.99</div>
+      <div class="pricing-strip-item"><i class="fas fa-envelope"></i> Email Marketing $5.99 one-time</div>
+      <div class="pricing-strip-item"><i class="fas fa-share-alt"></i> Social Media $49.99 / account / month</div>
+      <div class="pricing-strip-item"><i class="fas fa-bullhorn"></i> Meta or Google Ads $20 / campaign</div>
+      <div class="pricing-strip-item"><i class="fas fa-search"></i> SEO $249.99 / 30 days</div>
     </div>
   </div>
 </div>
 
+<style id="pricing-restructure-additions">
+  .section-additional { background:var(--navy); padding:3.5rem 0 4rem; border-top:1px solid var(--border-soft); }
+  .section-additional .section-title { font-size:clamp(1.5rem,2.4vw,2.1rem); }
+  .section-additional .pricing-card { border-color:var(--border-soft); box-shadow:none; }
+  .section-additional .pricing-card.featured { transform:none; }
+  .pkg-price-note { font:400 .74rem 'Jost',sans-serif; letter-spacing:.06em; color:var(--gold-light); text-align:center; margin:-.4rem 0 1rem; }
+  .btn-pricing.explore-link { display:block; text-align:center; text-decoration:none; }
+  .section-steps .col-lg { margin-bottom:1.5rem; }
+  .table-subhead td { background:rgba(201,168,76,.06); color:var(--gold)!important; font:500 .7rem 'Jost',sans-serif!important; letter-spacing:.16em; text-transform:uppercase; }
+</style>
+
 <main>
-<!-- PACKAGES (card markup kept as-is because pricing.js reads it) -->
+
+<!-- SECTION 1: CORE SERVICE PRICING CARDS (IDs preserved for footer links) -->
 <section class="section-pricing section-grid" id="packages" aria-labelledby="pricing-grid-heading">
   <div class="container">
-    <p class="section-label">Choose Your Plan</p>
-    <h2 class="section-title" id="pricing-grid-heading">Compare Our Digital Marketing Packages</h2>
-    <p class="section-subtitle">Pick the package that fits your goal and budget. Not sure which one? <a href="contact.html">Contact us</a> for a free recommendation.</p>
-    <!-- TODO: clarify what "Valid for 7 days" means on the cards (delivery time? order validity?) and add it to the comparison table below -->
-    <!-- TODO: "Verified" in the lead data cards should only stay if you can back it up -->
+    <p class="section-label">Fixed-Price Services</p>
+    <h2 class="section-title" id="pricing-grid-heading">Digital Marketing Pricing: Our Core Services</h2>
+    <p class="section-subtitle">Our digital marketing pricing is simple: every service below has a fixed, published price. Review the deliverables and <a href="contact.html">contact our team</a> if you have questions before you order.</p>
+
+    <!--
+      SERVICE-PAGE LINKS (provisional): the four buttons below point to contact.html so no visitor hits a 404.
+      When each dedicated page is live and its URL confirmed, swap the href:
+        SEO            -> seo-services.html              (TODO: confirm)
+        Social Media   -> social-media-services.html     (TODO: confirm)
+        Email          -> email-marketing-services.html  (TODO: confirm)
+        Meta & Google  -> meta-google-ads.html           (TODO: confirm)
+      and change the button label/aria-label back to "Explore ...".
+    -->
 
     <div class="row justify-content-center">
 
-      <div class="col-lg-4 col-md-6 mb-4" id="email-marketing">
-        <article class="pricing-card">
-          <div class="pricing-icon"><i class="fas fa-envelope-open-text" aria-hidden="true"></i></div>
-          <h3>Email Marketing Package</h3>
-          <div class="pricing-validity">Valid for 7 days &nbsp;·&nbsp; Grow via email outreach</div>
-          <div class="price-wrap"><span class="price-currency">$</span><span class="price-amount">5</span><span class="price-cents">.99</span></div>
-          <hr class="pricing-divider">
-          <ul class="pricing-features">
-            <li><i class="fas fa-check" aria-hidden="true"></i> 500 Email Sends</li>
-            <li><i class="fas fa-check" aria-hidden="true"></i> Newsletter or Template Design</li>
-            <li><i class="fas fa-check" aria-hidden="true"></i> Email Marketing Software Management</li>
-          </ul>
-          <p class="pkg-note">Our entry-level email marketing package: design, delivery and software management for startups and small businesses.</p>
-          <a href="#" class="btn-pricing order-btn" aria-label="Order email marketing package">Order Now</a>
-        </article>
-      </div>
-
-      <div class="col-lg-4 col-md-6 mb-4" id="lead-generation">
-        <article class="pricing-card featured">
-          <span class="popular-badge">Most Popular</span>
-          <div class="pricing-icon"><i class="fas fa-database" aria-hidden="true"></i></div>
-          <h3>B2B Data Services &amp; Lead Generation</h3>
-          <div class="pricing-validity">Valid for 7 days &nbsp;·&nbsp; B2B &amp; B2C Leads</div>
-          <div class="price-wrap"><span class="price-currency">$</span><span class="price-amount">149</span><span class="price-cents">.99</span></div>
-          <hr class="pricing-divider">
-          <ul class="pricing-features">
-            <li><i class="fas fa-check" aria-hidden="true"></i> 1,000 Verified Emails</li>
-            <li><i class="fas fa-check" aria-hidden="true"></i> Email &amp; Phone (if available)</li>
-            <li><i class="fas fa-check" aria-hidden="true"></i> LinkedIn Data Extraction</li>
-          </ul>
-          <p class="pkg-note">1,000 targeted B2B or B2C contacts, delivered as structured data ready for outreach. <a href="portfolio.html#b2b-lead-generation">See a sample</a>.</p>
-          <a href="#" class="btn-pricing order-btn" aria-label="Order B2B data services and lead generation package">Order Now</a>
-        </article>
-      </div>
-
-      <div class="col-lg-4 col-md-6 mb-4" id="seo-package">
+      <!-- SEO SERVICES -->
+      <div class="col-xl-3 col-lg-6 col-md-6 mb-4" id="seo-package">
         <article class="pricing-card">
           <div class="pricing-icon"><i class="fas fa-search" aria-hidden="true"></i></div>
-          <h3>SEO Package — SEO Services Pricing</h3>
+          <h3>SEO Services</h3>
           <div class="pricing-validity">30 days &nbsp;·&nbsp; Search Engine Optimisation</div>
           <div class="price-wrap"><span class="price-currency">$</span><span class="price-amount">249</span><span class="price-cents">.99</span></div>
           <hr class="pricing-divider">
@@ -275,15 +267,115 @@
             <li><i class="fas fa-check" aria-hidden="true"></i> Keyword Strategy &amp; Research</li>
             <li><i class="fas fa-check" aria-hidden="true"></i> Organic Growth Plan</li>
           </ul>
-          <p class="pkg-note">A 30-day SEO package with clear deliverables. Want a free review first? <a href="contact.html">Request a consultation</a>.</p>
-          <a href="#" class="btn-pricing order-btn" aria-label="Order SEO package">Order Now</a>
+          <p class="pkg-note">A 30-day SEO package with clear deliverables, built to help your website earn more organic search traffic.</p>
+          <a href="contact.html" class="btn-pricing explore-link" aria-label="Ask about SEO services">Ask About SEO Services</a>
+        </article>
+      </div>
+
+      <!-- SOCIAL MEDIA MANAGEMENT & GROWTH -->
+      <div class="col-xl-3 col-lg-6 col-md-6 mb-4" id="social-media">
+        <article class="pricing-card">
+          <div class="pricing-icon"><i class="fas fa-share-alt" aria-hidden="true"></i></div>
+          <h3>Social Media Management &amp; Growth</h3>
+          <div class="pricing-validity">1 Account &nbsp;·&nbsp; 1 Platform &nbsp;·&nbsp; Per Month</div>
+          <div class="price-wrap"><span class="price-currency">$</span><span class="price-amount">49</span><span class="price-cents">.99</span></div>
+          <hr class="pricing-divider">
+          <ul class="pricing-features">
+            <li><i class="fas fa-check" aria-hidden="true"></i> Organic Engagement &amp; Community Management</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Branding &amp; Message Replies</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Full Handling of One Social Media Account</li>
+          </ul>
+          <p class="pkg-note">Covers one social media account on one platform. The $49.99 monthly price does not cover multiple platforms or multiple accounts.</p>
+          <a href="contact.html" class="btn-pricing explore-link" aria-label="Ask about social media services">Ask About Social Media</a>
+        </article>
+      </div>
+
+      <!-- EMAIL MARKETING & TEMPLATE DESIGN -->
+      <div class="col-xl-3 col-lg-6 col-md-6 mb-4" id="email-marketing">
+        <article class="pricing-card">
+          <div class="pricing-icon"><i class="fas fa-envelope-open-text" aria-hidden="true"></i></div>
+          <h3>Email Marketing &amp; Template Design</h3>
+          <div class="pricing-validity">One-Time Fee &nbsp;·&nbsp; 500 Email Sends</div>
+          <div class="price-wrap"><span class="price-currency">$</span><span class="price-amount">5</span><span class="price-cents">.99</span></div>
+          <hr class="pricing-divider">
+          <ul class="pricing-features">
+            <li><i class="fas fa-check" aria-hidden="true"></i> 500 Email Sends</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Newsletter or Template Design</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Email Marketing Software Management</li>
+          </ul>
+          <p class="pkg-note">A one-time package (not a subscription): design, delivery of 500 email sends and software management for startups and small businesses.</p>
+          <a href="contact.html" class="btn-pricing explore-link" aria-label="Ask about email marketing services">Ask About Email Marketing</a>
+        </article>
+      </div>
+
+      <!-- META & GOOGLE ADS -->
+      <div class="col-xl-3 col-lg-6 col-md-6 mb-4" id="meta-google-ads">
+        <article class="pricing-card">
+          <div class="pricing-icon"><i class="fas fa-bullhorn" aria-hidden="true"></i></div>
+          <h3>Meta &amp; Google Ads</h3>
+          <div class="pricing-validity">1 Campaign &nbsp;·&nbsp; 1 Selected Platform &nbsp;·&nbsp; Ad Budget Excluded</div>
+          <div class="price-wrap"><span class="price-currency">$</span><span class="price-amount">20</span><span class="price-cents">.00</span></div>
+          <hr class="pricing-divider">
+          <ul class="pricing-features">
+            <li><i class="fas fa-check" aria-hidden="true"></i> Choose ONE platform: Meta (Facebook &amp; Instagram) Ads <strong>or</strong> Google Ads</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Management of One Campaign</li>
+          </ul>
+          <p class="pkg-note">$20 covers one campaign on either Meta or Google Ads, not both. Your advertising budget is paid separately and is not included.</p>
+          <a href="contact.html" class="btn-pricing explore-link" aria-label="Ask about Meta and Google Ads services">Ask About Meta &amp; Google Ads</a>
+        </article>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: ADDITIONAL SERVICES -->
+<section class="section-additional" id="additional-services" aria-labelledby="additional-heading">
+  <div class="container">
+    <p class="section-label">More From CrackFlow</p>
+    <h2 class="section-title" id="additional-heading">Additional Services</h2>
+    <p class="section-subtitle">Data and administrative services we also offer at fixed prices. <a href="contact.html">Contact our team</a> to discuss any of these before ordering.</p>
+
+    <div class="row justify-content-center">
+
+      <div class="col-lg-4 col-md-6 mb-4" id="lead-generation">
+        <article class="pricing-card">
+          <div class="pricing-icon"><i class="fas fa-database" aria-hidden="true"></i></div>
+          <h3>B2B Data Services &amp; Lead Generation</h3>
+          <div class="pricing-validity">B2B &amp; B2C leads &nbsp;·&nbsp; Custom-sourced data</div>
+          <div class="price-wrap"><span class="price-currency">$</span><span class="price-amount">149</span><span class="price-cents">.99</span></div>
+          <hr class="pricing-divider">
+          <ul class="pricing-features">
+            <li><i class="fas fa-check" aria-hidden="true"></i> 1,000 B2B or B2C Emails</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Email &amp; Phone (if available)</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> LinkedIn Data Extraction</li>
+          </ul>
+          <p class="pkg-note">1,000 targeted B2B or B2C contacts, delivered as structured data ready for outreach. <a href="portfolio.html#b2b-lead-generation">See a sample</a>.</p>
+          <a href="contact.html" class="btn-pricing explore-link" aria-label="Contact us about B2B data services and lead generation">Ask About Lead Generation</a>
+        </article>
+      </div>
+
+      <div class="col-lg-4 col-md-6 mb-4" id="ready-database">
+        <article class="pricing-card">
+          <div class="pricing-icon"><i class="fas fa-server" aria-hidden="true"></i></div>
+          <h3>Ready-to-Use B2B Database</h3>
+          <div class="pricing-validity">Promote your business &nbsp;·&nbsp; Ready-to-use data</div>
+          <div class="price-wrap"><span class="price-currency">$</span><span class="price-amount">49</span><span class="price-cents">.99</span></div>
+          <hr class="pricing-divider">
+          <ul class="pricing-features">
+            <li><i class="fas fa-check" aria-hidden="true"></i> 1,000 Email / Phone Contacts</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Company Information Included</li>
+            <li><i class="fas fa-check" aria-hidden="true"></i> Ready for Immediate Use</li>
+          </ul>
+          <p class="pkg-note">A ready-made database you can use right away for outreach. <a href="portfolio.html#volume-b2b-data">See a sample</a>.</p>
+          <a href="contact.html" class="btn-pricing explore-link" aria-label="Contact us about the ready B2B database">Ask About the Database</a>
         </article>
       </div>
 
       <div class="col-lg-4 col-md-6 mb-4" id="virtual-assistant">
         <article class="pricing-card">
           <div class="pricing-icon"><i class="fas fa-briefcase" aria-hidden="true"></i></div>
-          <h3>Virtual Assistant &amp; Administrative Support Services</h3>
+          <h3>Virtual Assistant &amp; Administrative Support</h3>
           <div class="pricing-validity">Per day 5 hours &nbsp;·&nbsp; Virtual assistant support</div>
           <div class="price-wrap"><span class="price-currency">$</span><span class="price-amount">49</span><span class="price-cents">.99</span></div>
           <hr class="pricing-divider">
@@ -293,41 +385,7 @@
             <li><i class="fas fa-check" aria-hidden="true"></i> Excel &amp; Data Entry</li>
           </ul>
           <p class="pkg-note">Five dedicated hours a day of remote support, so you can focus on running your business.</p>
-          <a href="#" class="btn-pricing order-btn" aria-label="Order virtual assistant and administrative support services">Order Now</a>
-        </article>
-      </div>
-
-      <div class="col-lg-4 col-md-6 mb-4" id="ready-database">
-        <article class="pricing-card">
-          <div class="pricing-icon"><i class="fas fa-server" aria-hidden="true"></i></div>
-          <h3>B2B Data Services — Ready Database</h3>
-          <div class="pricing-validity">Promote your business &nbsp;·&nbsp; Ready-to-use data</div>
-          <div class="price-wrap"><span class="price-currency">$</span><span class="price-amount">49</span><span class="price-cents">.99</span></div>
-          <hr class="pricing-divider">
-          <ul class="pricing-features">
-            <li><i class="fas fa-check" aria-hidden="true"></i> 1,000 Email / Phone Contacts</li>
-            <li><i class="fas fa-check" aria-hidden="true"></i> Company Information Included</li>
-            <li><i class="fas fa-check" aria-hidden="true"></i> Good Quality Verified Data</li>
-          </ul>
-          <p class="pkg-note">A ready-made database you can use right away for outreach. <a href="portfolio.html#volume-b2b-data">See a sample</a>.</p>
-          <a href="#" class="btn-pricing order-btn" aria-label="Order B2B data services ready database">Order Now</a>
-        </article>
-      </div>
-
-      <div class="col-lg-4 col-md-6 mb-4" id="social-media">
-        <article class="pricing-card">
-          <div class="pricing-icon"><i class="fas fa-share-alt" aria-hidden="true"></i></div>
-          <h3>Social Media Marketing Package</h3>
-          <div class="pricing-validity">For business accounts &nbsp;·&nbsp; Per account / month</div>
-          <div class="price-wrap"><span class="price-currency">$</span><span class="price-amount">49</span><span class="price-cents">.99</span></div>
-          <hr class="pricing-divider">
-          <ul class="pricing-features">
-            <li><i class="fas fa-check" aria-hidden="true"></i> Organic Engagement &amp; Community Management</li>
-            <li><i class="fas fa-check" aria-hidden="true"></i> Branding &amp; Message Replies</li>
-            <li><i class="fas fa-check" aria-hidden="true"></i> Full Social Media Account Handling</li>
-          </ul>
-          <p class="pkg-note">Complete account management covering branding, engagement and replies. <a href="portfolio.html#social-media-content">See our work</a>.</p>
-          <a href="#" class="btn-pricing order-btn" aria-label="Order social media marketing package">Order Now</a>
+          <a href="contact.html" class="btn-pricing explore-link" aria-label="Contact us about virtual assistant services">Ask About Virtual Assistance</a>
         </article>
       </div>
 
@@ -335,71 +393,78 @@
   </div>
 </section>
 
-<!-- COMPARISON TABLE -->
-<section class="section-compare" aria-labelledby="compare-heading">
+<!-- SECTION 3: COMPARISON TABLE -->
+<section class="section-compare" id="compare" aria-labelledby="compare-heading">
   <div class="container">
-    <h2 class="section-title" id="compare-heading">Package Comparison: Prices &amp; What's Included</h2>
-    <p class="section-subtitle">All six packages side by side.</p>
+    <h2 class="section-title" id="compare-heading">Digital Marketing Services Pricing &amp; Package Comparison</h2>
+    <p class="section-subtitle">Compare our digital marketing packages side by side. Prices and deliverables match the cards above.</p>
     <div class="table-wrap">
       <table class="price-table">
-        <thead><tr><th scope="col">Package</th><th scope="col">Price</th><th scope="col">What you get</th><th scope="col">Best for</th></tr></thead>
+        <thead><tr><th scope="col">Service</th><th scope="col">Price</th><th scope="col">Billing Period</th><th scope="col">What's Included</th><th scope="col">Best For</th></tr></thead>
         <tbody>
-          <tr><td><a href="#email-marketing">Email Marketing</a></td><td class="p">$5.99</td><td>500 email sends, newsletter or template design, software management</td><td>Startups trying email outreach</td></tr>
-          <tr><td><a href="#social-media">Social Media Management</a></td><td class="p">$49.99 / month</td><td>Branding, engagement and message replies for one account</td><td>Businesses without time for social media</td></tr>
-          <tr><td><a href="#virtual-assistant">Virtual Assistant</a></td><td class="p">$49.99 / day</td><td>5 hours: WordPress, listings support, Excel and data entry</td><td>Owners who need remote admin help</td></tr>
-          <tr><td><a href="#ready-database">Ready Database</a></td><td class="p">$49.99</td><td>1,000 email and phone contacts with company information</td><td>Quick outreach campaigns</td></tr>
-          <tr><td><a href="#lead-generation">Lead Generation</a></td><td class="p">$149.99</td><td>1,000 B2B or B2C emails, with phones where available</td><td>Targeted lead lists</td></tr>
-          <tr><td><a href="#seo-package">SEO Package</a></td><td class="p">$249.99 / 30 days</td><td>On-page optimisation, keyword strategy, organic growth plan</td><td>Sites that need more search traffic</td></tr>
+          <tr><td><a href="#seo-package">SEO Services</a></td><td class="p">$249.99</td><td>30 days</td><td>On-page optimisation, keyword strategy &amp; research, organic growth plan</td><td>Sites that need more search traffic</td></tr>
+          <tr><td><a href="#social-media">Social Media Management &amp; Growth</a></td><td class="p">$49.99</td><td>Per account / month (1 account · 1 platform)</td><td>One social media account on one platform: organic engagement &amp; community management, branding &amp; message replies. Multiple platforms or accounts not covered</td><td>Businesses without time for social media</td></tr>
+          <tr><td><a href="#email-marketing">Email Marketing &amp; Template Design</a></td><td class="p">$5.99</td><td>One-Time · 500 Sends</td><td>500 email sends, newsletter or template design, software management</td><td>Startups trying email outreach</td></tr>
+          <tr><td><a href="#meta-google-ads">Meta &amp; Google Ads</a></td><td class="p">$20.00</td><td>1 campaign · 1 selected platform (ad budget excluded)</td><td>One campaign on either Meta (Facebook &amp; Instagram) Ads or Google Ads, as selected by the customer, not both</td><td>Businesses running paid advertising</td></tr>
+          <tr class="table-subhead"><td colspan="5">Additional Services</td></tr>
+          <tr><td><a href="#lead-generation">B2B Data Services &amp; Lead Generation</a></td><td class="p">$149.99</td><td>Fixed price (1,000 leads)</td><td>1,000 B2B or B2C emails, with phones where available, via LinkedIn data extraction</td><td>Targeted lead lists</td></tr>
+          <tr><td><a href="#ready-database">Ready-to-Use B2B Database</a></td><td class="p">$49.99</td><td>Fixed price (1,000 contacts)</td><td>1,000 email and phone contacts with company information</td><td>Quick outreach campaigns</td></tr>
+          <tr><td><a href="#virtual-assistant">Virtual Assistant &amp; Administrative Support</a></td><td class="p">$49.99</td><td>Per day (5 hours)</td><td>WordPress management, real estate listing support, Excel and data entry</td><td>Owners who need remote admin help</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 </section>
 
-<!-- HOW ORDERING WORKS -->
+<!-- SECTION 4: HOW IT WORKS -->
 <section class="section-steps" aria-labelledby="steps-heading">
   <div class="container">
     <p class="section-label">Simple Process</p>
-    <h2 class="section-title" id="steps-heading">How Ordering Works</h2>
-    <p class="section-subtitle">Four steps from choosing a package to tracking your order.</p>
+    <h2 class="section-title" id="steps-heading">How It Works</h2>
+    <p class="section-subtitle">Five steps from exploring our services to tracking your project.</p>
     <div class="row">
-      <div class="col-lg-3 col-md-6 mb-4"><div class="step-card"><div class="step-num">1</div><h3>Choose</h3><p>Pick a package above and click Order Now. You will need a free account, so <a href="/auth/signup">sign up</a> or <a href="/auth/login">log in</a>.</p></div></div>
-      <div class="col-lg-3 col-md-6 mb-4"><div class="step-card"><div class="step-num">2</div><h3>Pay</h3><p>Pay through Skrill using the details in your order confirmation email.</p></div></div>
-      <div class="col-lg-3 col-md-6 mb-4"><div class="step-card"><div class="step-num">3</div><h3>Confirm</h3><p>Send your payment screenshot on WhatsApp. We confirm your order within 24 hours.</p></div></div>
-      <div class="col-lg-3 col-md-6 mb-4"><div class="step-card"><div class="step-num">4</div><h3>Track</h3><p>Follow your order's status on the <a href="Yourorders.html">Your Orders</a> page until delivery.</p></div></div>
+      <div class="col-lg col-md-6 mb-4"><div class="step-card"><div class="step-num">1</div><h3>Explore</h3><p>Browse our <a href="#packages">services and prices</a> and choose the one that fits your goals.</p></div></div>
+      <div class="col-lg col-md-6 mb-4"><div class="step-card"><div class="step-num">2</div><h3>Review</h3><p>Check the deliverables on each card and see <a href="portfolio.html">our previous work</a>.</p></div></div>
+      <div class="col-lg col-md-6 mb-4"><div class="step-card"><div class="step-num">3</div><h3>Meet</h3><p>Arrange a pre-purchase meeting with our team. <a href="contact.html">Contact us</a> to schedule it.</p></div></div>
+      <div class="col-lg col-md-6 mb-4"><div class="step-card"><div class="step-num">4</div><h3>Confirm</h3><p>Confirm the service with our team and place your order.</p></div></div>
+      <div class="col-lg col-md-6 mb-4"><div class="step-card"><div class="step-num">5</div><h3>Pay &amp; Track</h3><p>Complete your payment, then follow progress on the <a href="Yourorders.html">Your Orders</a> page.</p></div></div>
     </div>
   </div>
 </section>
 
-<!-- FAQ (text matches the FAQPage schema) -->
+<!-- SECTION 5: FAQ (text must match the FAQPage JSON-LD) -->
 <section class="section-faq" id="faq" aria-labelledby="faq-heading">
   <div class="container">
     <p class="section-label">Common Questions</p>
-    <h2 class="section-title" id="faq-heading">Pricing FAQs</h2>
-    <p class="section-subtitle">Quick answers before you order.</p>
+    <h2 class="section-title" id="faq-heading">Digital Marketing Pricing FAQs</h2>
+    <p class="section-subtitle">Quick answers about pricing and purchasing before you get started.</p>
     <div class="faq-list">
-      <details><summary>How much does an SEO package cost?</summary><p>Our SEO package costs $249.99 for 30 days and covers on-page optimisation, keyword strategy and an organic growth plan. For larger needs, <a href="contact.html">contact us</a> for a custom quote.</p></details>
-      <details><summary>How much does email marketing cost?</summary><p>Our email marketing package starts at $5.99 and includes 500 email sends, newsletter or template design, and email marketing software management.</p></details>
-      <details><summary>What does the lead generation package include?</summary><p>For $149.99 you get 1,000 B2B or B2C emails, with phone numbers where available, sourced through LinkedIn data extraction.</p></details>
-      <details><summary>How much do social media and virtual assistant services cost?</summary><p>Social media management is $49.99 per account per month. Virtual assistant and administrative support is $49.99 per day for 5 hours.</p></details>
-      <details><summary>How do I pay?</summary><p>We accept payment through Skrill. After you place your order, send your payment screenshot to us on WhatsApp at +880 1753 565232.</p></details>
-      <details><summary>Can I combine packages or get a custom quote?</summary><p>Yes. Contact us and we will recommend the right mix of services and give you a bundled or custom quote.</p></details>
+      <details><summary>How much do CrackFlow's digital marketing services cost?</summary><p>Our core services are priced as follows: SEO services $249.99 for 30 days; social media management and growth $49.99 per month for one account on one platform; email marketing and template design $5.99 as a one-time fee for 500 email sends; and Meta &amp; Google Ads management $20 for one campaign on one selected platform, either Meta or Google Ads (ad budget not included). We also offer additional services such as lead generation ($149.99 for 1,000 leads), a ready-to-use B2B database ($49.99 for 1,000 contacts) and virtual assistant support ($49.99 per day, 5 hours per day).</p></details>
+      <details><summary>Are CrackFlow's digital marketing packages offered at fixed prices?</summary><p>Yes. Each package on this page has a fixed, published price for the scope shown on its card. The Meta &amp; Google Ads price is a management fee for one campaign on one selected platform and does not include your advertising budget.</p></details>
+      <details><summary>What is included in each digital marketing package?</summary><p>The deliverables for every package are listed on its pricing card and in the comparison table above. <a href="contact.html">Contact our team</a> if you need more detail on any service.</p></details>
+      <details><summary>Can I purchase individual marketing services?</summary><p>Yes. Our services are priced individually, so you can choose only the ones you need. If you would like to combine services, <a href="contact.html">contact our team</a> to discuss your requirements.</p></details>
+      <details><summary>Is the Meta or Google Ads advertising budget included in the management fee?</summary><p>No. Our Meta &amp; Google Ads fee of $20 covers management of one campaign on one selected platform (either Meta or Google Ads) only. The advertising budget is separate and is paid for the ads you run.</p></details>
+      <details><summary>Do you require an advance payment?</summary><p>Payment terms are confirmed with our team before you place an order, so you know exactly what to expect. <a href="contact.html">Contact us</a> to discuss payment for your chosen service.</p></details>
+      <details><summary>Do I need to arrange a meeting before purchasing?</summary><p>Yes. We ask customers to arrange a short pre-purchase meeting with our team so we can confirm your requirements and the right service before the order is placed.</p></details>
+      <details><summary>Does CrackFlow offer free trials?</summary><p>No. We do not currently offer free trials. Every service has a clear, fixed price listed on this page.</p></details>
     </div>
   </div>
 </section>
 
-<!-- FINAL CTA -->
+<!-- SECTION 6: FINAL CTA -->
 <section class="section-cta" aria-labelledby="cta-heading">
   <div class="container">
-    <h2 class="section-title" id="cta-heading">Need a Custom Package? Let's Talk</h2>
-    <p class="section-subtitle">Tell us what you want to achieve and we will recommend the right package. See our <a href="portfolio.html">portfolio</a> or read our <a href="https://clutch.co/profile/crackflow" target="_blank" rel="noopener">reviews on Clutch</a>.</p>
+    <h2 class="section-title" id="cta-heading">Ready to Choose the Right Digital Marketing Service?</h2>
+    <p class="section-subtitle">Review our packages and deliverables above, then contact our team to discuss your requirements before placing an order.</p>
     <div class="btn-row">
-      <a href="contact.html" class="btn-cta-small">Get a Free Consultation</a>
-      <a href="#packages" class="btn-cta-small outline">Back to Packages</a>
+      <a href="#packages" class="btn-cta-small">Explore Our Services</a>
+      <a href="contact.html" class="btn-cta-small outline">Contact Our Team</a>
     </div>
   </div>
 </section>
 </main>
+
+<!-- ===================== END CONTENT SECTIONS ===================== -->
 
 <!-- FOOTER -->
 <footer class="footer" aria-label="Site footer">

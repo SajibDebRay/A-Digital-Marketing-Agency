@@ -1,96 +1,238 @@
+
 /* =============================================
-   Cr@ckFlow Pricing Page — pricing.js
-   Maps H3 text → canonical service names
-   then checks login before redirecting
+   CrackFlow Pricing & Service Order Handler
+   =============================================
+   Responsibilities:
+   - Handle .order-btn elements on service pages.
+   - Verify login status before checkout.
+   - Map service cards using stable HTML IDs.
+   - Preserve existing payment.html parameters.
+   - Prevent duplicate click handling.
+   
+   The Pricing page has no .order-btn elements.
+   Meta & Google Ads ordering remains disabled
+   until its payment backend mapping is verified.
    ============================================= */
 
-document.addEventListener("DOMContentLoaded", () => {
+(function () {
+  'use strict';
 
-  // ── Maps the long SEO H3 text → canonical service name
-  // that service-options.js and payment.js understand
-  const SERVICE_NAME_MAP = {
-    'email marketing package'                             : 'Email Marketing',
-    'b2b data services & lead generation'                 : 'Data Scraping',
-    'b2b data services and lead generation'               : 'Data Scraping',
-    'seo package — seo services pricing'                  : 'SEO Services',
-    'seo package – seo services pricing'                  : 'SEO Services',
-    'virtual assistant & administrative support services' : 'Administrative Support',
-    'virtual assistant and administrative support services': 'Administrative Support',
-    'b2b data services — ready database'                  : 'Database',
-    'b2b data services – ready database'                  : 'Database',
-    'social media marketing package'                      : 'SMM Services',
-  };
-
-  const BASE_PRICES = {
-    'Email Marketing'      : 5.99,
-    'Data Scraping'        : 149.99,
-    'SEO Services'         : 249.99,
-    'Administrative Support': 49.99,
-    'Database'             : 49.99,
-    'SMM Services'         : 49.99,
-  };
-
-  const orderButtons = document.querySelectorAll(".order-btn");
-  console.log("Order buttons found:", orderButtons.length);
-
-  orderButtons.forEach((btn) => {
-    btn.addEventListener("click", async (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-
-      console.log("Order Now clicked");
-
-      // ── Auth check first ──
-      try {
-        const res  = await fetch('/auth/status');
-        const data = await res.json();
-
-        if (!data.loggedIn) {
-          const paywall = document.getElementById('paywall-notice');
-          if (paywall) {
-            paywall.style.display = 'block';
-            paywall.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          }
-          return;
-        }
-      } catch (err) {
-        console.warn('Auth check failed:', err);
-        return;
-      }
-
-      // ── Get card info ──
-      const card = btn.closest(".pricing-card");
-      if (!card) { console.error("Pricing card not found."); return; }
-
-      const h3El     = card.querySelector("h3");
-      const amountEl = card.querySelector(".price-amount");
-      const centsEl  = card.querySelector(".price-cents");
-
-      if (!h3El || !amountEl || !centsEl) {
-        console.error("Service or price element missing.");
-        return;
-      }
-
-      // ── Map long H3 text → canonical service name ──
-      const h3Raw      = h3El.innerText.trim().toLowerCase()
-                          .replace(/\s+/g, ' ')   // collapse whitespace
-                          .replace(/&/g, 'and');   // normalise ampersands
-      const service    = SERVICE_NAME_MAP[h3Raw] || h3El.innerText.trim();
-      const basePrice  = BASE_PRICES[service];
-
-      const amount = amountEl.innerText.replace(/[^0-9.]/g, "").trim();
-      const cents  = centsEl.innerText.replace(/[^0-9]/g, "").padStart(2, "0");
-      const price  = basePrice ? basePrice.toFixed(2) : `${amount}.${cents}`;
-
-      console.log("Canonical service:", service, "| Price:", price);
-
-      // ── Save & redirect ──
-      localStorage.setItem("selectedService", service);
-      localStorage.setItem("selectedPrice",   price);
-
-      window.location.href =
-        `payment.html?service=${encodeURIComponent(service)}&price=${encodeURIComponent(price)}`;
-    });
+  // Canonical service names understood by the existing
+  // service-options.js / payment.js workflow.
+  var SERVICE_BY_CARD_ID = Object.freeze({
+    'seo-package': 'SEO Services',
+    'social-media': 'SMM Services',
+    'email-marketing': 'Email Marketing',
+    'lead-generation': 'Data Scraping',
+    'ready-database': 'Database',
+    'virtual-assistant': 'Administrative Support'
   });
 
-});
+  // Client-side display/reference prices only.
+  // The server MUST independently validate all prices.
+  var BASE_PRICES = Object.freeze({
+    'SEO Services': 249.99,
+    'SMM Services': 49.99,
+    'Email Marketing': 5.99,
+    'Data Scraping': 149.99,
+    'Database': 49.99,
+    'Administrative Support': 49.99
+  });
+
+  var listenersAttached = false;
+
+  /**
+   * Display the existing login notice.
+   */
+  function showLoginNotice() {
+    var paywall = document.getElementById('paywall-notice');
+
+    if (paywall) {
+      paywall.style.display = 'block';
+      paywall.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+      return;
+    }
+
+    window.location.href = '/auth/login';
+  }
+
+  /**
+   * Check the current authentication status.
+   */
+  async function checkAuthentication() {
+    var response = await fetch('/auth/status', {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json'
+      },
+      credentials: 'same-origin',
+      cache: 'no-store'
+    });
+
+    if (!response.ok) {
+      throw new Error(
+        'Authentication request failed: HTTP ' + response.status
+      );
+    }
+
+    var data = await response.json();
+
+    if (!data || typeof data.loggedIn !== 'boolean') {
+      throw new Error('Invalid authentication response.');
+    }
+
+    return data;
+  }
+
+  /**
+   * Resolve the service from the nearest card wrapper ID.
+   */
+  function getServiceFromButton(button) {
+    var card = button.closest('.pricing-card');
+
+    if (!card) {
+      return null;
+    }
+
+    var wrapper = card.closest('[id]');
+
+    if (!wrapper) {
+      return null;
+    }
+
+    return SERVICE_BY_CARD_ID[wrapper.id] || null;
+  }
+
+  /**
+   * Handle an individual order click.
+   */
+  async function onOrderClick(event, button) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    // Prevent multiple checkout attempts from repeated clicks.
+    if (button.dataset.checkoutPending === 'true') {
+      return;
+    }
+
+    button.dataset.checkoutPending = 'true';
+    button.setAttribute('aria-disabled', 'true');
+
+    try {
+      // Verify login before proceeding.
+      var authData = await checkAuthentication();
+
+      if (!authData.loggedIn) {
+        showLoginNotice();
+        return;
+      }
+
+      // Resolve the service using its stable wrapper ID.
+      var service = getServiceFromButton(button);
+
+      if (!service) {
+        throw new Error(
+          'This service is not configured for the existing payment system.'
+        );
+      }
+
+      var numericPrice = BASE_PRICES[service];
+
+      if (
+        typeof numericPrice !== 'number' ||
+        !Number.isFinite(numericPrice) ||
+        numericPrice <= 0
+      ) {
+        throw new Error('Invalid service price configuration.');
+      }
+
+      var price = numericPrice.toFixed(2);
+
+      // Retain the existing payment workflow's storage keys.
+      try {
+        localStorage.setItem('selectedService', service);
+        localStorage.setItem('selectedPrice', price);
+      } catch (storageError) {
+        // Continue: URL parameters are still passed below.
+        console.warn(
+          'Local storage unavailable; continuing with URL parameters.',
+          storageError
+        );
+      }
+
+      // Preserve the existing payment page contract.
+      // IMPORTANT: The server must validate the service and price.
+      var checkoutUrl =
+        '/payment.html?service=' +
+        encodeURIComponent(service) +
+        '&price=' +
+        encodeURIComponent(price);
+
+      window.location.assign(checkoutUrl);
+
+    } catch (error) {
+      console.error('Order processing error:', error);
+
+      window.alert(
+        'We could not process your order right now. ' +
+        'Please refresh the page or contact CrackFlow.'
+      );
+
+    } finally {
+      // Re-enable the button if navigation did not complete.
+      button.dataset.checkoutPending = 'false';
+      button.removeAttribute('aria-disabled');
+    }
+  }
+
+  /**
+   * Delegated click handler.
+   * Supports order buttons added dynamically after page load.
+   */
+  function handleDocumentClick(event) {
+    var target = event.target;
+
+    if (!target || typeof target.closest !== 'function') {
+      return;
+    }
+
+    var button = target.closest('.order-btn');
+
+    if (!button) {
+      return;
+    }
+
+    onOrderClick(event, button);
+  }
+
+  /**
+   * Attach only one document-level listener.
+   */
+  function attachOrderListeners() {
+    if (listenersAttached || !document) {
+      return;
+    }
+
+    document.addEventListener('click', handleDocumentClick);
+
+    listenersAttached = true;
+  }
+
+  // Preserve compatibility with existing pages/scripts.
+  window.attachOrderListeners = attachOrderListeners;
+
+  // Initialize safely regardless of script loading position.
+  if (document.readyState === 'loading') {
+    document.addEventListener(
+      'DOMContentLoaded',
+      attachOrderListeners,
+      { once: true }
+    );
+  } else {
+    attachOrderListeners();
+  }
+
+})();
